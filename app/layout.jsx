@@ -1,5 +1,5 @@
 // Components
-import Nav from "@components/nav";
+import Nav from "@components/Nav";
 import Provider from "@components/Provider";
 // Styles
 import "@styles/globals.css";
