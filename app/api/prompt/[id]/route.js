@@ -67,7 +67,7 @@ export const DELETE = async (req, { params }) => {
       });
     }
 
-    await existingPrompt.delete();
+    await Prompt.findByIdAndRemove(params.id);
 
     return new Response(JSON.stringify(existingPrompt), {
       status: 200,
