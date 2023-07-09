@@ -25,6 +25,15 @@ const Feed = () => {
     setSearchText(e.target.value);
   };
 
+  const handleSearch = e => {
+    e.preventDefault();
+    if (!searchText) return;
+    const filteredPosts = posts.filter(
+      post => post.tag === searchText || post.prompt.includes(searchText)
+    );
+    setPosts(filteredPosts);
+  };
+
   useEffect(() => {
     const fetchPosts = async () => {
       const res = await fetch("/api/prompt");
@@ -35,7 +44,7 @@ const Feed = () => {
   }, []);
   return (
     <section className="feed">
-      <form className="relative w-full flex-center">
+      <form className="relative w-full flex-center" onSubmit={handleSearch}>
         <input
           type="text"
           placeholder="Search for  tag or a username"
