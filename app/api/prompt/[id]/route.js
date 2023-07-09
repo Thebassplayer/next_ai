@@ -55,3 +55,27 @@ export const PATCH = async (req, { params }) => {
 };
 
 //DELETE
+export const DELETE = async (req, { params }) => {
+  try {
+    await connectToDB();
+
+    const existingPrompt = await Prompt.findById(params.id);
+
+    if (!existingPrompt) {
+      return new Response("Prompt not found", {
+        status: 404,
+      });
+    }
+
+    await existingPrompt.delete();
+
+    return new Response(JSON.stringify(existingPrompt), {
+      status: 200,
+    });
+  } catch (error) {
+    console.log(error);
+    return new Response(JSON.stringify(error), {
+      status: 500,
+    });
+  }
+};
