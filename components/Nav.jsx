@@ -23,12 +23,12 @@ const Nav = () => {
       <Link href="/" className="flex gap-2 flex-center">
         <Image
           src="/assets/images/logo.svg"
-          alt="Promptopia Logo"
-          width={30}
-          height={30}
+          alt="PromptHub Logo"
+          width={40}
+          height={40}
           className="object-contain"
         />
-        <p className="logo_text">Promptopia</p>
+        <p className="logo_text">PromptHub</p>
       </Link>
 
       {/* Desktop Nav */}

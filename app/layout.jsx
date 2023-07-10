@@ -5,7 +5,7 @@ import Provider from "@components/Provider";
 import "@styles/globals.css";
 
 export const metadata = {
-  title: "Promptopia",
+  title: "PromptHub",
   description: "A place to find prompts for your next project",
 };
 
