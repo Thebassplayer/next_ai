@@ -10,7 +10,6 @@ export const GET = async req => {
       status: 200,
     });
   } catch (error) {
-    console.log(error);
     return new Response(JSON.stringify(error), {
       status: 500,
     });
