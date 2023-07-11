@@ -3,6 +3,7 @@ import GoogleProvider from "next-auth/providers/google";
 // Mongo DB
 import User from "@models/user";
 import { connectToDB } from "@utils/database";
+import { generateUniqueUsername } from "@utils/database";
 
 const handler = NextAuth({
   providers: [
@@ -13,6 +14,7 @@ const handler = NextAuth({
   ],
   callbacks: {
     async signIn({ profile }) {
+      console.log("profile: ", profile);
       try {
         await connectToDB();
 
@@ -21,9 +23,10 @@ const handler = NextAuth({
 
         // If the user does not exist, create a new user
         if (!userExist) {
+          const newUser = await generateUniqueUsername();
           await User.create({
             email: profile.email,
-            username: profile.name.replace(" ", "").toLowerCase(),
+            username: newUser,
             image: profile.picture,
           });
         }
