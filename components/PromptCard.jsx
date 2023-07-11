@@ -3,6 +3,8 @@ import { useState } from "react";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
+// Components
+import FavouriteButton from "./FavouriteButton";
 
 const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
   const { data: session } = useSession();
@@ -25,7 +27,7 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
   };
 
   return (
-    <div className="prompt_card">
+    <div className="prompt_card relative">
       <div className="flex justify-between items-start gap-5">
         <div
           className="flex-1 flex justify-start items-center gap-3 cursor-pointer"
@@ -47,17 +49,25 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
             </p>
           </div>
         </div>
-        <div className="copy_btn" onClick={handleCopy}>
-          <Image
-            src={
-              copied === post.prompt
-                ? "/assets/icons/tick.svg"
-                : "/assets/icons/copy.svg"
-            }
-            alt={copied === post.prompt ? "copied" : "copy"}
-            width={12}
-            height={12}
-          />
+        <div
+          id="buttons_container"
+          className="flex gap-2 absolute top-2 right-2"
+        >
+          <div className="copy_btn" onClick={handleCopy}>
+            <Image
+              src={
+                copied === post.prompt
+                  ? "/assets/icons/tick.svg"
+                  : "/assets/icons/copy.svg"
+              }
+              alt={copied === post.prompt ? "copied" : "copy"}
+              width={12}
+              height={12}
+            />
+          </div>
+          <div className="copy_btn">
+            <FavouriteButton />
+          </div>
         </div>
       </div>
       <p className="my-4 font-satoshi text-sm text-gray-700">{post.prompt}</p>

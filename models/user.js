@@ -16,6 +16,12 @@ const UserSchema = new Schema({
   image: {
     type: String,
   },
+  favourites: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Prompt",
+    },
+  ],
 });
 
 const User = models.User || model("User", UserSchema);

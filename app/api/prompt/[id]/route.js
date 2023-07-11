@@ -25,7 +25,7 @@ export const GET = async (req, { params }) => {
 
 //PATCH
 export const PATCH = async (req, { params }) => {
-  const { prompt, tag, favourite, shared } = await req.json();
+  const { prompt, tag, shared } = await req.json();
 
   try {
     await connectToDB();
@@ -40,7 +40,6 @@ export const PATCH = async (req, { params }) => {
 
     existingPrompt.prompt = prompt;
     existingPrompt.tag = tag;
-    existingPrompt.favourite = favourite;
     existingPrompt.shared = shared;
 
     await existingPrompt.save();

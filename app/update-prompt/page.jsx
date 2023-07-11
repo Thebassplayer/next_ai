@@ -14,7 +14,6 @@ const EditPrompt = () => {
   const [post, setPost] = useState({
     prompt: "",
     tag: "",
-    favourite: false,
     sharde: false,
   });
 
@@ -45,7 +44,6 @@ const EditPrompt = () => {
         body: JSON.stringify({
           prompt: data?.prompt,
           tag: data?.tag,
-          favourite: data?.favourite,
           sharde: data?.sharde,
         }),
       });
@@ -63,7 +61,6 @@ const EditPrompt = () => {
     <Form
       type="Edit"
       post={post}
-      promptId={promptId}
       setPost={setPost}
       submitting={submitting}
       handleSubmit={updatePrompt}
