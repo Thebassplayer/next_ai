@@ -11,6 +11,8 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
   const pathName = usePathname();
   const router = useRouter();
 
+  const sessionIdEqualsCreatorId = session?.user?.id === post?.creator?._id;
+
   const [copied, setCopied] = useState("");
 
   const handleCopy = () => {
@@ -27,12 +29,7 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
   };
 
   return (
-    <div
-      className="prompt_card relative"
-      onClick={() => {
-        console.log("clicked");
-      }}
-    >
+    <div className="prompt_card relative">
       <div className="flex justify-between items-start gap-5">
         <div
           className="flex-1 flex justify-start items-center gap-3 cursor-pointer"
@@ -75,7 +72,17 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
           </div>
         </div>
       </div>
-      <p className="my-4 font-satoshi text-sm text-gray-700">{post.prompt}</p>
+      {sessionIdEqualsCreatorId ? (
+        <p
+          className="my-4 font-satoshi text-sm text-gray-700 cursor-pointer"
+          onClick={handleEdit}
+        >
+          {post.prompt}
+        </p>
+      ) : (
+        <p className="my-4 font-satoshi text-sm text-gray-700">{post.prompt}</p>
+      )}
+
       <div className="w-min">
         <p
           className="font-inter text-sm blue_gradient cursor-pointer"
@@ -84,7 +91,7 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
           #{post.tag}
         </p>
       </div>
-      {session?.user?.id === post.creator._id && pathName === "/profile" && (
+      {sessionIdEqualsCreatorId && pathName === "/profile" && (
         <div className="mt-5 flex-center gap-4 border-gray-100 pt-3">
           <p
             className="font-inter text-sm green_gradient cursor-pointer"
