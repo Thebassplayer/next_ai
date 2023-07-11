@@ -18,7 +18,7 @@ const FavoriteButton = () => {
           <FontAwesomeIcon
             icon={faStar}
             size="xs"
-            style={{ color: "#f9f924" }}
+            style={{ color: "#ffea00" }}
             className="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
           />
         </>
