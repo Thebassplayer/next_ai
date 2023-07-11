@@ -7,9 +7,9 @@ import SearchBar from "./SearchBar";
 import { useSession } from "next-auth/react";
 // Custom Hooks
 import useGetFeedPosts from "../hooks/useGetFeedPosts";
+import useFilterPrompts from "@hooks/useFilterPrompts";
 
 const PromptCardList = ({ data, handleTagClick }) => {
-  console.log("PromptCardList data: ", data);
   return (
     <div className="mt-16 prompt_layout">
       {data?.map(post => (
@@ -26,46 +26,54 @@ const PromptCardList = ({ data, handleTagClick }) => {
 const Feed = () => {
   const { data: session } = useSession();
   const { posts: allPosts } = useGetFeedPosts(session);
+  const debounceDelay = 500;
+  const {
+    searchText,
+    handleSearchChange,
+    filteredPosts,
+    handleClearInput,
+    handleTagClick,
+  } = useFilterPrompts(allPosts, debounceDelay);
 
-  // Search State
-  const [searchText, setSearchText] = useState("");
-  const [searchTimeout, setSearchTimeout] = useState(null);
-  const [filteredPosts, setFilteredPosts] = useState([]);
+  // // Search State
+  // const [searchText, setSearchText] = useState("");
+  // const [searchTimeout, setSearchTimeout] = useState(null);
+  // const [filteredPosts, setFilteredPosts] = useState([]);
 
-  const filterPrompts = searchtext => {
-    const regex = new RegExp(searchtext, "i"); // 'i' flag for case-insensitive search
-    return allPosts.filter(
-      item =>
-        regex.test(item.creator.username) ||
-        regex.test(item.tag) ||
-        regex.test(item.prompt)
-    );
-  };
+  // const filterPrompts = searchtext => {
+  //   const regex = new RegExp(searchtext, "i"); // 'i' flag for case-insensitive search
+  //   return allPosts.filter(
+  //     item =>
+  //       regex.test(item.creator.username) ||
+  //       regex.test(item.tag) ||
+  //       regex.test(item.prompt)
+  //   );
+  // };
 
-  const handleSearchChange = e => {
-    clearTimeout(searchTimeout);
-    setSearchText(e.target.value);
+  // const handleSearchChange = e => {
+  //   clearTimeout(searchTimeout);
+  //   setSearchText(e.target.value);
 
-    //Debounce method
-    setSearchTimeout(
-      setTimeout(() => {
-        const searchResult = filterPrompts(e.target.value);
-        setFilteredPosts(searchResult);
-      }, 500)
-    );
-  };
+  //   //Debounce method
+  //   setSearchTimeout(
+  //     setTimeout(() => {
+  //       const searchResult = filterPrompts(e.target.value);
+  //       setFilteredPosts(searchResult);
+  //     }, 500)
+  //   );
+  // };
 
-  const handleTagClick = tagName => {
-    setSearchText(tagName);
+  // const handleTagClick = tagName => {
+  //   setSearchText(tagName);
 
-    const searchResult = filterPrompts(tagName);
-    setFilteredPosts(searchResult);
-  };
+  //   const searchResult = filterPrompts(tagName);
+  //   setFilteredPosts(searchResult);
+  // };
 
-  const handleClearInput = () => {
-    setSearchText("");
-    setFilteredPosts([]);
-  };
+  // const handleClearInput = () => {
+  //   setSearchText("");
+  //   setFilteredPosts([]);
+  // };
 
   return (
     <section className="feed">
