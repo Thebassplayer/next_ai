@@ -1,34 +1,11 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 // Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 const FavouriteButton = () => {
   const [favouriteButton, setFavouriteButton] = useState(false);
-  // const { favourite } = post;
-  // const [favouriteButton, setFavouriteButton] = useState(false);
-  // useEffect(() => {
-  //   console.log(favourite);
-  //   setFavouriteButton(favourite);
-  // }, [favourite]);
-
-  // const updateFavourite = async favouriteButton => {
-  //   try {
-  //     await fetch(`/api/prompt/${promptId}`, {
-  //       method: "PATCH",
-  //       body: JSON.stringify({
-  //         favourite: favouriteButton,
-  //       }),
-  //     });
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-  // const handleOnClick = () => {
-  //   setFavouriteButton(!favouriteButton);
-  //   updateFavourite(favouriteButton);
-  // };
 
   return (
     <div

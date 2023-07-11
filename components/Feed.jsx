@@ -5,8 +5,11 @@ import PromptCard from "./PromptCard";
 import SearchBar from "./SearchBar";
 // Next
 import { useSession } from "next-auth/react";
+// Custom Hooks
+import useGetFeedPosts from "../hooks/useGetFeedPosts";
 
 const PromptCardList = ({ data, handleTagClick }) => {
+  console.log("PromptCardList data: ", data);
   return (
     <div className="mt-16 prompt_layout">
       {data?.map(post => (
@@ -22,24 +25,12 @@ const PromptCardList = ({ data, handleTagClick }) => {
 
 const Feed = () => {
   const { data: session } = useSession();
-  const [allPosts, setAllPosts] = useState([]);
+  const { posts: allPosts } = useGetFeedPosts(session);
 
   // Search State
   const [searchText, setSearchText] = useState("");
   const [searchTimeout, setSearchTimeout] = useState(null);
   const [filteredPosts, setFilteredPosts] = useState([]);
-
-  const fetchPosts = async () => {
-    const res = await fetch("/api/prompt");
-    const data = await res.json();
-    setAllPosts(data);
-  };
-
-  useEffect(() => {
-    if (session) {
-      fetchPosts();
-    }
-  }, [session]);
 
   const filterPrompts = searchtext => {
     const regex = new RegExp(searchtext, "i"); // 'i' flag for case-insensitive search
