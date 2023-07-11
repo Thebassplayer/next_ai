@@ -5,11 +5,19 @@ import { signIn, signOut, useSession, getProviders } from "next-auth/react";
 // Components
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 const Nav = () => {
   const { data: session } = useSession();
   const [providers, setProviders] = useState(null);
   const [toggleDropdown, setToggleDropdown] = useState(false);
+  const router = useRouter();
+
+  const handleSignOut = () => {
+    signOut({
+      callbackUrl: "/",
+    });
+  };
 
   useEffect(() => {
     const setUpProviders = async () => {
@@ -38,7 +46,11 @@ const Nav = () => {
             <Link href="/create-prompt" className="black_btn">
               Create Post
             </Link>
-            <button type="button" onClick={signOut} className="outline_btn">
+            <button
+              type="button"
+              onClick={handleSignOut}
+              className="outline_btn"
+            >
               Sign Out
             </button>
             <Link href="/profile">

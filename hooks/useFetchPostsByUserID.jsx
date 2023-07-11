@@ -2,13 +2,13 @@
 import { useState, useEffect } from "react";
 
 const useGetPostsByUserID = userId => {
-  const [posts, setPosts] = useState([]);
+  const [userPosts, setUserPosts] = useState([]);
 
   useEffect(() => {
     const getPostsByUserID = async () => {
       const res = await fetch(`/api/users/${userId}/posts`);
       const data = await res.json();
-      setPosts(data);
+      setUserPosts(data);
     };
 
     if (userId) {
@@ -16,7 +16,7 @@ const useGetPostsByUserID = userId => {
     }
   }, [userId]);
 
-  return { posts };
+  return { userPosts };
 };
 
 export default useGetPostsByUserID;

@@ -1,18 +1,25 @@
 "use client";
 import React from "react";
 import { useSearchParams } from "next/navigation";
+// Custom Hooks
 import useGetPostsByUserID from "../../../hooks/useFetchPostsByUserID";
+// Components
+import Profile from "@components/Profile";
 
 const UserProfile = ({ params }) => {
   const searchParams = useSearchParams();
   const userName = searchParams.get("name");
   const id = params?.id;
 
-  const { posts } = useGetPostsByUserID(id);
+  const { userPosts } = useGetPostsByUserID(id);
 
-  console.log(posts);
-
-  return <div>UserProfile</div>;
+  return (
+    <Profile
+      name={userName}
+      desc={`Welcome to ${userName}'s prompts page.`}
+      data={userPosts}
+    />
+  );
 };
 
 export default UserProfile;
