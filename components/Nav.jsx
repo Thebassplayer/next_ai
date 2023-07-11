@@ -27,7 +27,7 @@ const Nav = () => {
     setUpProviders();
   }, []);
   return (
-    <nav className="flex-between w-full mb-16 pt-3">
+    <nav className="flex-between w-full m-4 sm:mb-16 pt-3">
       <Link href="/" className="flex gap-2 flex-center">
         <Image
           src="/assets/images/logo.svg"
@@ -58,7 +58,7 @@ const Nav = () => {
                 src={session?.user?.image}
                 width={37}
                 height={37}
-                className="rounded-full"
+                className="rounded-full cursor-pointer ease-in-out delay-150 duration-300 hover:scale-110"
                 alt="profile"
               />
             </Link>
@@ -87,7 +87,7 @@ const Nav = () => {
               src={session?.user?.image}
               width={37}
               height={37}
-              className="rounded-full cursor-pointer"
+              className="rounded-full cursor-pointer ease-in-out delay-150 duration-300 hover:scale-110"
               alt="profile"
               onClick={() => setToggleDropdown(prevState => !prevState)}
               id="profile-sm"
