@@ -8,17 +8,15 @@ const Form = ({
   promptHandler,
   tagHandler,
 }) => {
+  const { prompt, tag } = post;
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="mt-10 w-full max-w-2xl flex flex-col gap-7 glassmorphism"
-    >
+    <form onSubmit={handleSubmit} className="w-full flex flex-col gap-7">
       <label>
         <span className="font-satoshi font-semibold text-base text-gray-700">
           Yout AI Prompt
         </span>
         <textarea
-          value={post.prompt}
+          value={prompt}
           onChange={promptHandler}
           placeholder="Write your prompt here..."
           required
@@ -31,7 +29,7 @@ const Form = ({
           <span className="fony-norml">(#idea)</span>
         </span>
         <input
-          value={post.tag}
+          value={tag}
           onChange={tagHandler}
           placeholder="#tag"
           required

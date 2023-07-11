@@ -9,11 +9,13 @@ const EditPrompt = () => {
 
   const searchParams = useSearchParams();
   const promptId = searchParams.get("id");
-
+  console.log("promptId: ", promptId);
   const [submitting, setSubmitting] = useState(false);
   const [post, setPost] = useState({
     prompt: "",
     tag: "",
+    favourite: false,
+    sharde: false,
   });
 
   useEffect(() => {
@@ -21,8 +23,10 @@ const EditPrompt = () => {
       const response = await fetch(`/api/prompt/${promptId}`);
       const data = await response.json();
       setPost({
-        prompt: data.prompt,
-        tag: data.tag,
+        prompt: data?.prompt,
+        tag: data?.tag,
+        favourite: data?.favourite || false,
+        sharde: data?.sharde || false,
       });
     };
     if (promptId) {
@@ -39,8 +43,10 @@ const EditPrompt = () => {
       const response = await fetch(`/api/prompt/${promptId}`, {
         method: "PATCH",
         body: JSON.stringify({
-          prompt: post.prompt,
-          tag: post.tag,
+          prompt: data?.prompt,
+          tag: data?.tag,
+          favourite: data?.favourite,
+          sharde: data?.sharde,
         }),
       });
       if (response.ok) {
@@ -57,6 +63,7 @@ const EditPrompt = () => {
     <Form
       type="Edit"
       post={post}
+      promptId={promptId}
       setPost={setPost}
       submitting={submitting}
       handleSubmit={updatePrompt}

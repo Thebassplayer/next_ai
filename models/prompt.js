@@ -13,10 +13,6 @@ const PromptSchema = new Schema({
     type: String,
     required: [true, "Please provide a tag"],
   },
-  favourite: {
-    type: Boolean,
-    default: false,
-  },
   shared: {
     type: Boolean,
     default: false,
