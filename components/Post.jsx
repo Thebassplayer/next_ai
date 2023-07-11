@@ -1,7 +1,7 @@
 // Components
 import Form from "@components/Form";
 import PostTitle from "@components/PostTitle";
-import FavouriteButton from "@components/FavouriteButton";
+import FavoriteButton from "@components/FavoriteButton";
 
 const Post = ({ type, post, promptId, setPost, submitting, handleSubmit }) => {
   const promptHandler = e => {
@@ -22,10 +22,10 @@ const Post = ({ type, post, promptId, setPost, submitting, handleSubmit }) => {
             className="absolute top-0 right-0 p-4 flex-center gap-2"
             role="post_button_container"
           >
-            <FavouriteButton
+            <FavoriteButton
               promptId={promptId}
               post={post}
-              handleFavourite={handleSubmit}
+              handleFavorite={handleSubmit}
             />
           </div>
           <Form

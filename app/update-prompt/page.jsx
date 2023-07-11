@@ -24,7 +24,7 @@ const EditPrompt = () => {
       setPost({
         prompt: data?.prompt,
         tag: data?.tag,
-        favourite: data?.favourite || false,
+        favorite: data?.favorite || false,
         sharde: data?.sharde || false,
       });
     };

@@ -16,7 +16,7 @@ const UserSchema = new Schema({
   image: {
     type: String,
   },
-  favourites: [
+  favorites: [
     {
       type: Schema.Types.ObjectId,
       ref: "Prompt",

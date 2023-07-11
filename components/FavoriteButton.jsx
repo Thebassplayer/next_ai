@@ -4,15 +4,15 @@ import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 
-const FavouriteButton = () => {
-  const [favouriteButton, setFavouriteButton] = useState(false);
+const FavoriteButton = () => {
+  const [favoriteButton, setFavoriteButton] = useState(false);
 
   return (
     <div
       className="relative cursor-pointer"
-      onClick={() => setFavouriteButton(prev => !prev)}
+      onClick={() => setFavoriteButton(prev => !prev)}
     >
-      {favouriteButton ? (
+      {favoriteButton ? (
         <>
           <FontAwesomeIcon icon={faStar} size="sm" />
           <FontAwesomeIcon
@@ -29,4 +29,4 @@ const FavouriteButton = () => {
   );
 };
 
-export default FavouriteButton;
+export default FavoriteButton;

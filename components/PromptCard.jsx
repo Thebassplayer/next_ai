@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
 // Components
-import FavouriteButton from "./FavouriteButton";
+import FavoriteButton from "./FavoriteButton";
 
 const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
   const { data: session } = useSession();
@@ -66,7 +66,7 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
             />
           </div>
           <div className="copy_btn">
-            <FavouriteButton />
+            <FavoriteButton />
           </div>
         </div>
       </div>
