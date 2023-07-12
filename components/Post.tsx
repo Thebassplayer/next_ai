@@ -7,7 +7,7 @@ import { Post } from "mongodb";
 type PostProps = {
   type: string;
   post: Post;
-  promptId: string;
+  promptId?: string;
   setPost: React.Dispatch<React.SetStateAction<Post>>;
   submitting: boolean;
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
@@ -20,7 +20,7 @@ const Post = ({
   setPost,
   submitting,
   handleSubmit,
-}): JSX.Element => {
+}: PostProps): JSX.Element => {
   const promptHandler: React.ChangeEventHandler<HTMLInputElement> = e => {
     setPost({ ...post, prompt: e.target.value });
   };

@@ -1,8 +1,18 @@
 "use client";
+import { Post } from "mongodb";
 import { useState, useEffect } from "react";
 
-const useFilterPrompts = (allPosts, debounceDelay) => {
-  const [searchText, setSearchText] = useState("");
+const useFilterPrompts = (
+  allPosts: Post[],
+  debounceDelay: number
+): {
+  searchText: string;
+  handleSearchChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  filteredPosts: Post[];
+  handleClearInput: () => void;
+  handleTagClick: (tagName: string) => void;
+} => {
+  const [searchText, setSearchText] = useState<string>("");
   const [filteredPosts, setFilteredPosts] = useState([]);
 
   const filterPrompts = searchText => {
@@ -15,25 +25,25 @@ const useFilterPrompts = (allPosts, debounceDelay) => {
     );
   };
 
-  const debounce = (callback, delay) => {
-    let timer;
-    return function (...args) {
+  const debounce = (callback: Function, delay: number) => {
+    let timer: NodeJS.Timeout;
+    return function (...args: any[]) {
       clearTimeout(timer);
       timer = setTimeout(() => callback(...args), delay);
     };
   };
 
-  const handleSearchChange = e => {
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchText(e.target.value);
   };
 
-  const handleTagClick = tagName => {
+  const handleTagClick = (tagName: string) => {
     setSearchText(tagName);
     const searchResult = filterPrompts(tagName);
     setFilteredPosts(searchResult);
   };
 
-  const handleSearchDebounced = debounce(searchText => {
+  const handleSearchDebounced = debounce((searchText: string) => {
     const searchResult = filterPrompts(searchText);
     setFilteredPosts(searchResult);
   }, debounceDelay);

@@ -1,8 +1,9 @@
 "use client";
 import { useState, useEffect } from "react";
+import { Post } from "mongodb";
 
-const useGetPostsByUserID = userId => {
-  const [userPosts, setUserPosts] = useState([]);
+const useGetPostsByUserID = (userId: string) => {
+  const [userPosts, setUserPosts] = useState<Post[] | []>([]);
 
   useEffect(() => {
     const getPostsByUserID = async () => {

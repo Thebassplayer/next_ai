@@ -6,7 +6,13 @@ import useGetPostsByUserID from "../../../hooks/useGetPostsByUserID";
 // Components
 import Profile from "@components/Profile";
 
-const UserProfile = ({ params }) => {
+type UserProfileProps = {
+  params: {
+    id: string;
+  };
+};
+
+const UserProfile = ({ params }: UserProfileProps) => {
   const searchParams = useSearchParams();
   const userName = searchParams.get("name");
   const id = params?.id;
