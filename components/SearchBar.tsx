@@ -1,7 +1,17 @@
 "use client";
 import React from "react";
 
-const SearchBar = ({ searchText, handleSearchChange, handleClearInput }) => {
+type SearchBarProps = {
+  searchText: string;
+  handleSearchChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleClearInput: (e: React.MouseEvent<HTMLButtonElement>) => void;
+};
+
+const SearchBar = ({
+  searchText,
+  handleSearchChange,
+  handleClearInput,
+}): JSX.Element => {
   return (
     <form
       className="relative w-full flex-center"
