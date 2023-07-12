@@ -9,7 +9,7 @@ const FavoriteButton = () => {
 
   return (
     <div
-      className="relative cursor-pointer"
+      className="relative cursor-pointer copy_btn"
       onClick={() => setFavoriteButton(prev => !prev)}
     >
       {favoriteButton ? (

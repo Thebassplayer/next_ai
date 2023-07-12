@@ -46,9 +46,6 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
             <h3 className="font-satoshi font-semibold text-grey-900">
               {post.creator.username}
             </h3>
-            <p className="font-inter text-sm text-gray-500">
-              {post.creator.email}
-            </p>
           </div>
         </div>
         <div
@@ -67,9 +64,8 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
               height={12}
             />
           </div>
-          <div className="copy_btn">
-            <FavoriteButton />
-          </div>
+
+          <FavoriteButton />
         </div>
       </div>
       {sessionIdEqualsCreatorId ? (
