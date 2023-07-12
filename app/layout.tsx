@@ -9,7 +9,11 @@ export const metadata = {
   description: "A place to find prompts for your next project",
 };
 
-const RootLayout = ({ children }) => (
+interface RootLayoutProps {
+  children?: React.ReactNode;
+}
+
+const RootLayout = ({ children }: RootLayoutProps) => (
   <html lang="en">
     <body>
       <Provider>
