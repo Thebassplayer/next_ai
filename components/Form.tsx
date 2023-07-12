@@ -7,7 +7,7 @@ const Form = ({
   type,
   promptHandler,
   tagHandler,
-}) => {
+}): JSX.Element => {
   const { prompt, tag } = post;
   return (
     <form onSubmit={handleSubmit} className="w-full flex flex-col gap-7">

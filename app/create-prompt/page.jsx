@@ -1,7 +1,7 @@
 "use client";
 import useCreatePrompt from "@hooks/useCreatePrompt";
 
-import Form from "@components/Post";
+import Post from "@components/Post";
 
 const CreatePrompt = () => {
   const { post, setPost, submitting, createPrompt } = useCreatePrompt();
@@ -11,7 +11,7 @@ const CreatePrompt = () => {
   };
 
   return (
-    <Form
+    <Post
       type="Create"
       post={post}
       setPost={setPost}

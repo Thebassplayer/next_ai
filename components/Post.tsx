@@ -2,12 +2,29 @@
 import Form from "@components/Form";
 import PostTitle from "@components/PostTitle";
 import FavoriteButton from "@components/FavoriteButton";
+import { Post } from "mongodb";
 
-const Post = ({ type, post, promptId, setPost, submitting, handleSubmit }) => {
-  const promptHandler = e => {
+type PostProps = {
+  type: string;
+  post: Post;
+  promptId: string;
+  setPost: React.Dispatch<React.SetStateAction<Post>>;
+  submitting: boolean;
+  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+};
+
+const Post = ({
+  type,
+  post,
+  promptId,
+  setPost,
+  submitting,
+  handleSubmit,
+}): JSX.Element => {
+  const promptHandler: React.ChangeEventHandler<HTMLInputElement> = e => {
     setPost({ ...post, prompt: e.target.value });
   };
-  const tagHandler = e => {
+  const tagHandler: React.ChangeEventHandler<HTMLInputElement> = e => {
     setPost({ ...post, tag: e.target.value });
   };
   return (
@@ -22,11 +39,7 @@ const Post = ({ type, post, promptId, setPost, submitting, handleSubmit }) => {
             className="absolute top-0 right-0 p-4 flex-center gap-2"
             role="post_button_container"
           >
-            <FavoriteButton
-              promptId={promptId}
-              post={post}
-              handleFavorite={handleSubmit}
-            />
+            <FavoriteButton />
           </div>
           <Form
             post={post}

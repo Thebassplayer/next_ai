@@ -1,8 +1,10 @@
 "use client";
 import { useState, useEffect } from "react";
+import { Session } from "next-auth";
+import { Post } from "mongodb";
 
-const useGetFeedPosts = session => {
-  const [posts, setPosts] = useState([]);
+const useGetFeedPosts = (session: Session) => {
+  const [posts, setPosts] = useState<Post[]>([]);
 
   useEffect(() => {
     if (!session) return;

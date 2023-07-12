@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -5,6 +7,7 @@ import { useRouter } from "next/navigation";
 const useCreatePrompt = () => {
   const router = useRouter();
   const { data: session } = useSession();
+  console.log("session: ", session.user);
   const [post, setPost] = useState({
     prompt: "",
     tag: "",
@@ -17,7 +20,7 @@ const useCreatePrompt = () => {
         method: "POST",
         body: JSON.stringify({
           prompt: post.prompt,
-          userId: session?.user.id,
+          userId: session?.user?.id,
           tag: post.tag,
         }),
       });

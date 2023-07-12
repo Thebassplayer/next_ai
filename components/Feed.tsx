@@ -8,7 +8,7 @@ import { useSession } from "next-auth/react";
 import useGetFeedPosts from "../hooks/useGetFeedPosts";
 import useFilterPrompts from "@hooks/useFilterPrompts";
 
-const Feed = () => {
+const Feed = (): JSX.Element => {
   const { data: session } = useSession();
   const { posts: allPosts } = useGetFeedPosts(session);
   const debounceDelay = 500;

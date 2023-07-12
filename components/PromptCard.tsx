@@ -5,8 +5,23 @@ import { useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
 // Components
 import FavoriteButton from "./FavoriteButton";
+// Types
+import { Post } from "mongodb";
 
-const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
+type PromptCardProps = {
+  post?: Post;
+  handleTagClick?: (tag: string) => void;
+  handleEdit?: () => void;
+  handleDelete?: () => void;
+  key: any;
+};
+
+const PromptCard = ({
+  post,
+  handleTagClick,
+  handleEdit,
+  handleDelete,
+}: PromptCardProps): JSX.Element => {
   const { data: session } = useSession();
   const pathName = usePathname();
   const router = useRouter();
@@ -82,7 +97,7 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
       <div className="w-min">
         <p
           className="font-inter text-sm blue_gradient cursor-pointer"
-          onClick={() => handleTagClick && handleTagClick(post.tag)}
+          onClick={() => handleTagClick && handleTagClick(post?.tag)}
         >
           #{post.tag}
         </p>
