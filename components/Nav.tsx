@@ -6,10 +6,12 @@ import { signIn, signOut, useSession, getProviders } from "next-auth/react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+// Types
+import { ProviderList } from "next-auth";
 
 const Nav = () => {
   const { data: session } = useSession();
-  const [providers, setProviders] = useState(null);
+  const [providers, setProviders] = useState<ProviderList | null>(null);
   const [toggleDropdown, setToggleDropdown] = useState(false);
   const router = useRouter();
 
@@ -22,6 +24,7 @@ const Nav = () => {
   useEffect(() => {
     const setUpProviders = async () => {
       const response = await getProviders();
+      console.log("--Provider:", response);
       setProviders(response);
     };
     setUpProviders();

@@ -9,4 +9,8 @@ declare module "next-auth" {
       id: string;
     };
   }
+
+  interface ProviderList extends Record<string, ClientSafeProvider> {
+    [key: string]: ClientSafeProvider;
+  }
 }
