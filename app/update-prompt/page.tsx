@@ -24,7 +24,6 @@ const EditPrompt = () => {
       setPost({
         prompt: data?.prompt,
         tag: data?.tag,
-        favorite: data?.favorite || false,
         sharde: data?.sharde || false,
       });
     };
@@ -42,9 +41,9 @@ const EditPrompt = () => {
       const response = await fetch(`/api/prompt/${promptId}`, {
         method: "PATCH",
         body: JSON.stringify({
-          prompt: data?.prompt,
-          tag: data?.tag,
-          sharde: data?.sharde,
+          prompt: post?.prompt,
+          tag: post?.tag,
+          sharde: post?.sharde,
         }),
       });
       if (response.ok) {
