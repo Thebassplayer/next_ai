@@ -7,7 +7,6 @@ import { useRouter } from "next/navigation";
 const useCreatePrompt = () => {
   const router = useRouter();
   const { data: session } = useSession();
-  console.log("session: ", session.user);
   const [post, setPost] = useState({
     prompt: "",
     tag: "",
