@@ -16,6 +16,6 @@ declare module "mongodb" {
     email: string;
     username: string;
     image: string;
-    favourites: Post[];
+    favorites: Post[];
   }
 }
