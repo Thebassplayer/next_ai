@@ -1,9 +1,15 @@
 import { useRouter } from "next/navigation";
 import { Post } from "mongodb";
 
-const useEditPost = (post: Post) => {
+const useEditPost = (): {
+  handleEdit: (post: Post) => void;
+} => {
   const router = useRouter();
-  router.push(`/update-prompt?id=${post._id}`);
+  function handleEdit(post: Post) {
+    router.push(`/update-prompt?id=${post._id}`);
+  }
+
+  return { handleEdit };
 };
 
 export default useEditPost;
