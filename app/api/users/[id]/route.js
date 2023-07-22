@@ -4,6 +4,7 @@ import User from "@models/user";
 //PATCH
 export const PATCH = async (req, { params }) => {
   const { userId } = await req.json();
+  console.log("userId: ", userId);
 
   try {
     await connectToDB();

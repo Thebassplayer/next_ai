@@ -1,6 +1,6 @@
 // Components
 import { type } from "os";
-import PromptCard from "./PromptCard";
+import PromptCard from "./PostCard";
 // Types
 import { Post } from "mongodb";
 

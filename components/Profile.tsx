@@ -1,4 +1,4 @@
-import PromptCard from "./PromptCard";
+import PostCard from "./PostCard";
 import { Post } from "mongodb";
 
 type ProfileProps = {
@@ -24,7 +24,7 @@ const Profile = ({
       <p className="desc text-left">{desc}</p>
       <div className="mt-10 prompt_layout">
         {data.map((post: Post, index: number) => (
-          <PromptCard
+          <PostCard
             key={`${post.id}-${index}`}
             post={post}
             handleEdit={() => handleEdit && handleEdit(post)}

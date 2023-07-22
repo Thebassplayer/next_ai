@@ -16,7 +16,7 @@ type PromptCardProps = {
   key: any;
 };
 
-const PromptCard = ({
+const PostCard = ({
   post,
   handleTagClick,
   handleEdit,
@@ -122,4 +122,4 @@ const PromptCard = ({
   );
 };
 
-export default PromptCard;
+export default PostCard;
