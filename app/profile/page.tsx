@@ -1,8 +1,7 @@
 "use client";
-import { useState, useEffect } from "react";
 import useGetPostsByUserID from "@hooks/useGetPostsByUserID";
+import useDeletePost from "@hooks/useDeletePost";
 //Next
-import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 // Components
 import Profile from "@components/Profile";
@@ -10,33 +9,32 @@ import Profile from "@components/Profile";
 import { Post } from "mongodb";
 
 const MyProfile = () => {
-  const { data: session } = useSession();
   const router = useRouter();
-
-  const { userPosts } = useGetPostsByUserID(session?.user?.id);
+  const { userPosts } = useGetPostsByUserID();
 
   const handleEdit = (post: Post) => {
     router.push(`/update-prompt?id=${post._id}`);
   };
+  //   const hasConfirmed = confirm(
+  //     "Are you sure you want to delete this prompt?"
+  //   );
+  //   if (hasConfirmed) {
+  //     try {
+  //       const res = await fetch(`/api/prompt/${post._id}`, {
+  //         method: "DELETE",
+  //       });
 
-  const handleDelete = async (post: Post) => {
-    const hasConfirmed = confirm(
-      "Are you sure you want to delete this prompt?"
-    );
-    if (hasConfirmed) {
-      try {
-        const res = await fetch(`/api/prompt/${post._id}`, {
-          method: "DELETE",
-        });
+  //       if (res.ok) {
+  //         router.push("/");
+  //       }
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   }
+  // };
 
-        if (res.ok) {
-          router.push("/");
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  };
+  const { handleDelete } = useDeletePost("/");
+
   return (
     <Profile
       name="My"
