@@ -1,7 +1,7 @@
 "use client";
 // Components
 import SearchBar from "./SearchBar";
-import PromptCardList from "./PromptCardList";
+import PostCardList from "./PostCardList";
 // Next
 import { useSession } from "next-auth/react";
 // Custom Hooks
@@ -28,9 +28,9 @@ const Feed = (): JSX.Element => {
         handleClearInput={handleClearInput}
       />
       {searchText ? (
-        <PromptCardList data={filteredPosts} handleTagClick={handleTagClick} />
+        <PostCardList data={filteredPosts} handleTagClick={handleTagClick} />
       ) : (
-        <PromptCardList data={allPosts} handleTagClick={handleTagClick} />
+        <PostCardList data={allPosts} handleTagClick={handleTagClick} />
       )}
     </section>
   );

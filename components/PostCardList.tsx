@@ -4,12 +4,12 @@ import PromptCard from "./PostCard";
 // Types
 import { Post } from "mongodb";
 
-type PromptCardListProps = {
+type PostCardListProps = {
   data?: Post[];
   handleTagClick?: (tag: string) => void;
 };
 
-const PromptCardList = ({ data, handleTagClick }: PromptCardListProps) => {
+const PostCardList = ({ data, handleTagClick }: PostCardListProps) => {
   return (
     <div className="mt-16 prompt_layout">
       {data?.map((post, index) => (
@@ -23,4 +23,4 @@ const PromptCardList = ({ data, handleTagClick }: PromptCardListProps) => {
   );
 };
 
-export default PromptCardList;
+export default PostCardList;
