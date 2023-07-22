@@ -1,33 +1,25 @@
 "use client";
 import { useState, useEffect } from "react";
+import useGetPostsByUserID from "@hooks/useGetPostsByUserID";
+//Next
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 // Components
 import Profile from "@components/Profile";
+// Types
+import { Post } from "mongodb";
 
 const MyProfile = () => {
   const { data: session } = useSession();
-  const [posts, setPosts] = useState([]);
   const router = useRouter();
 
-  useEffect(() => {
-    const fetchPosts = async () => {
-      console.log(session?.user?.id);
-      const res = await fetch(`/api/users/${session?.user?.id}/posts`);
-      const data = await res.json();
-      setPosts(data);
-    };
+  const { userPosts } = useGetPostsByUserID(session?.user?.id);
 
-    if (session?.user?.id) {
-      fetchPosts();
-    }
-  }, [session]);
-
-  const handleEdit = post => {
+  const handleEdit = (post: Post) => {
     router.push(`/update-prompt?id=${post._id}`);
   };
 
-  const handleDelete = async post => {
+  const handleDelete = async (post: Post) => {
     const hasConfirmed = confirm(
       "Are you sure you want to delete this prompt?"
     );
@@ -36,10 +28,6 @@ const MyProfile = () => {
         const res = await fetch(`/api/prompt/${post._id}`, {
           method: "DELETE",
         });
-
-        const filteredPosts = posts.filter(p => p._id !== post._id);
-
-        setPosts(filteredPosts);
 
         if (res.ok) {
           router.push("/");
@@ -53,7 +41,7 @@ const MyProfile = () => {
     <Profile
       name="My"
       desc="Welcome to your profile page"
-      data={posts}
+      data={userPosts}
       handleEdit={handleEdit}
       handleDelete={handleDelete}
     />
