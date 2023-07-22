@@ -6,19 +6,18 @@ import PostCardList from "./PostCardList";
 import { useSession } from "next-auth/react";
 // Custom Hooks
 import useGetFeedPosts from "../hooks/useGetFeedPosts";
-import useFilterPrompts from "@hooks/useFilterPrompts";
+import useFilterPosts from "@hooks/useFilterPosts";
 
 const Feed = (): JSX.Element => {
   const { data: session } = useSession();
   const { posts: allPosts } = useGetFeedPosts(session);
-  const debounceDelay = 500;
   const {
     searchText,
     handleSearchChange,
     filteredPosts,
     handleClearInput,
     handleTagClick,
-  } = useFilterPrompts(allPosts, debounceDelay);
+  } = useFilterPosts({ allPosts });
 
   return (
     <section className="feed">

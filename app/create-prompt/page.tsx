@@ -1,10 +1,10 @@
 "use client";
-import useCreatePrompt from "@hooks/useCreatePrompt";
+import useCreatePost from "@hooks/useCreatePost";
 
 import Post from "@components/Post";
 
 const CreatePrompt = () => {
-  const { post, setPost, submitting, createPrompt } = useCreatePrompt();
+  const { post, setPost, submitting, createPrompt } = useCreatePost();
   const handleSubmit = e => {
     e.preventDefault();
     createPrompt();

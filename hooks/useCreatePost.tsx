@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
-const useCreatePrompt = () => {
+const useCreatePost = () => {
   const router = useRouter();
   const { data: session } = useSession();
   const [post, setPost] = useState({
@@ -37,4 +37,4 @@ const useCreatePrompt = () => {
   return { post, setPost, submitting, createPrompt };
 };
 
-export default useCreatePrompt;
+export default useCreatePost;

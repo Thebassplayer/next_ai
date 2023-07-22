@@ -2,10 +2,15 @@
 import { Post } from "mongodb";
 import { useState, useEffect } from "react";
 
-const useFilterPrompts = (
-  allPosts: Post[],
-  debounceDelay: number
-): {
+interface FilterPromptsArgs {
+  allPosts: Post[];
+  debounceDelay?: number;
+}
+
+const useFilterPosts = ({
+  allPosts,
+  debounceDelay = 500,
+}: FilterPromptsArgs): {
   searchText: string;
   handleSearchChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   filteredPosts: Post[];
@@ -66,4 +71,4 @@ const useFilterPrompts = (
   };
 };
 
-export default useFilterPrompts;
+export default useFilterPosts;
