@@ -2,25 +2,30 @@ import { useEffect, useState } from "react";
 // Types
 import { ProviderList } from "next-auth";
 // Next auth
-// import { getProviders } from "next-auth/react";
+import { getProviders } from "next-auth/react";
 
-const useSetUpProviders = (getProviders) => {
+const useSetUpProviders = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
   const [providers, setProviders] = useState<ProviderList | null>(null);
 
   useEffect(() => {
     try {
+      setIsLoading(true);
       const setUpProviders = async () => {
         const response = await getProviders();
-        console.log("--Provider:", response);
+        setIsLoading(false);
+        setIsError(false);
         setProviders(response);
       };
       setUpProviders();
-
     } catch (error) {
-console.log("--Error:", error);
+      setIsLoading(false);
+      setIsError(true);
+      console.log("--Error:", error);
     }
-  }, [providers]);
-  return { providers };
+  }, []);
+  return { providers, isLoading, isError };
 };
 
 export default useSetUpProviders;

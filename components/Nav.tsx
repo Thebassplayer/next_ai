@@ -1,18 +1,15 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 // Custom Hooks
 import useSetUpProviders from "@hooks/useSetUpProviders";
 // Next Auth
-import { signIn, signOut, useSession, getProviders } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 // Components
 import Link from "next/link";
 import Image from "next/image";
-// Types
-import { ProviderList } from "next-auth";
 
 const Nav = () => {
   const { data: session } = useSession();
-  const [providers, setProviders] = useState<ProviderList | null>(null);
   const [toggleDropdown, setToggleDropdown] = useState(false);
 
   const handleSignOut = () => {
@@ -21,16 +18,7 @@ const Nav = () => {
     });
   };
 
-  useEffect(() => {
-    const setUpProviders = async () => {
-      const response = await getProviders();
-      console.log("--Provider:", response);
-      setProviders(response);
-    };
-    setUpProviders();
-  }, []);
-
-  // const { providers } = useSetUpProviders(getProviders());
+  const { providers } = useSetUpProviders();
 
   return (
     <nav className="flex-between w-full m-4 sm:mb-16 pt-3">
