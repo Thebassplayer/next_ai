@@ -1,0 +1,3 @@
+interface Params {
+  id?: string;
+}
