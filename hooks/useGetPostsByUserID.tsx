@@ -10,11 +10,11 @@ const useGetPostsByUserID = (
 ): {
   userPosts: Post[] | [];
   isLoading: boolean;
-  error: any;
+  isError: any;
 } => {
   const { data: session } = useSession();
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [isError, setIsError] = useState(null);
   const [userPosts, setUserPosts] = useState<Post[] | []>([]);
 
   const id = userId || session?.user?.id;
@@ -29,15 +29,15 @@ const useGetPostsByUserID = (
       if (id) {
         getPostsByUserID();
         setIsLoading(false);
-        setError(null);
+        setIsError(null);
       }
     } catch (error) {
       setIsLoading(false);
-      setError(error);
+      setIsError(error);
     }
   }, [id]);
 
-  return { userPosts, isLoading, error };
+  return { userPosts, isLoading, isError };
 };
 
 export default useGetPostsByUserID;
