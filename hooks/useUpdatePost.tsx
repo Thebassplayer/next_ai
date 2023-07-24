@@ -1,25 +1,17 @@
 import { useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
-const useUpdatePost = (redirectRoutePath: string) => {
+const useUpdatePost = ({ postId, post, setPost, redirectRoutePath }) => {
   const router = useRouter();
-
-  const searchParams = useSearchParams();
-  const promptId = searchParams.get("id");
   const [submitting, setSubmitting] = useState(false);
-  const [post, setPost] = useState({
-    prompt: "",
-    tag: "",
-    sharde: false,
-  });
 
   const updatePrompt = async e => {
     e.preventDefault();
     setSubmitting(true);
-    if (!promptId) return alert("Prompt ID not found");
+    if (!postId) return alert("Prompt ID not found");
 
     try {
-      const response = await fetch(`/api/prompt/${promptId}`, {
+      const response = await fetch(`/api/prompt/${postId}`, {
         method: "PATCH",
         body: JSON.stringify({
           prompt: post?.prompt,

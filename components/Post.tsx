@@ -16,7 +16,6 @@ type PostProps = {
 const Post = ({
   type,
   post,
-  promptId,
   setPost,
   submitting,
   handleSubmit,
