@@ -2,7 +2,7 @@ import { connectToDB } from "@utils/database";
 import Prompt from "@models/prompt";
 
 // GET
-export const GET = async ({ params }: { params: Params }) => {
+export const GET = async (req: Request, { params }: { params: Params }) => {
   try {
     await connectToDB();
     const prompt = await Prompt.findById(params.id).populate("creator");
@@ -56,7 +56,7 @@ export const PATCH = async (req: Request, { params }: { params: Params }) => {
 };
 
 //DELETE
-export const DELETE = async ({ params }: { params: Params }) => {
+export const DELETE = async (req: Request, { params }: { params: Params }) => {
   try {
     await connectToDB();
 

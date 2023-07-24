@@ -1,28 +1,38 @@
-import { Post } from "mongodb";
+import { useState } from "react";
+// Next
 import { useRouter } from "next/navigation";
+// MongoDB
+import { Post } from "mongodb";
 
-const useDeletePost = (routePath: string) => {
+const useDeletePost = (redirectRoutePath: string) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(null);
   const router = useRouter();
 
   const handleDelete = async (post: Post) => {
-    const hasConfirmed = confirm(
+    setIsLoading(true);
+    const ClientHasConfirmed = confirm(
       "Are you sure you want to delete this prompt?"
     );
-    if (hasConfirmed) {
+    if (ClientHasConfirmed) {
       try {
         const res = await fetch(`/api/prompt/${post._id}`, {
           method: "DELETE",
         });
 
         if (res.ok) {
-          router.push(`${routePath}`);
+          setIsLoading(false);
+          setIsError(null);
+          router.push(`${redirectRoutePath}`);
         }
       } catch (error) {
+        setIsLoading(false);
+        setIsError(error);
         console.log(error);
       }
     }
   };
-  return { handleDelete };
+  return { handleDelete, isLoading, isError };
 };
 
 export default useDeletePost;
