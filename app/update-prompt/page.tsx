@@ -1,20 +1,13 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import useUpdatePost from "@hooks/useUpdatePost";
 
 import Post from "@components/Post";
 
 const EditPrompt = () => {
-  const router = useRouter();
-
   const searchParams = useSearchParams();
   const promptId = searchParams.get("id");
-  const [submitting, setSubmitting] = useState(false);
-  const [post, setPost] = useState({
-    prompt: "",
-    tag: "",
-    sharde: false,
-  });
 
   useEffect(() => {
     const getPromptDetails = async () => {
@@ -31,29 +24,7 @@ const EditPrompt = () => {
     }
   }, [promptId]);
 
-  const updatePrompt = async e => {
-    e.preventDefault();
-    setSubmitting(true);
-    if (!promptId) return alert("Prompt ID not found");
-
-    try {
-      const response = await fetch(`/api/prompt/${promptId}`, {
-        method: "PATCH",
-        body: JSON.stringify({
-          prompt: post?.prompt,
-          tag: post?.tag,
-          sharde: post?.sharde,
-        }),
-      });
-      if (response.ok) {
-        router.push("/");
-      }
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setSubmitting(false);
-    }
-  };
+  const { updatePrompt, submitting, post, setPost } = useUpdatePost("/");
 
   return (
     <Post

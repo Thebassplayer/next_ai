@@ -23,7 +23,7 @@ const useDeletePost = (redirectRoutePath: string) => {
         if (res.ok) {
           setIsLoading(false);
           setIsError(null);
-          router.push(`${redirectRoutePath}`);
+          router.push(redirectRoutePath);
         }
       } catch (error) {
         setIsLoading(false);
