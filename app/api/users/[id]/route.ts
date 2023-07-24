@@ -4,8 +4,7 @@ import User from "@models/user";
 import { NextApiRequest, NextApiResponse } from "next";
 
 //GET
-export const GET = async ({ params }) => {
-  console.log("Get user data fired");
+export const GET = async (req: NextApiRequest, { params }) => {
   console.log("params: ", params);
   // const { id: userId } = params;
 
