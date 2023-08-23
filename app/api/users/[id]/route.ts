@@ -1,10 +1,8 @@
 import { connectToDB } from "@utils/database";
 import User from "@models/user";
 
-import { NextApiRequest, NextApiResponse } from "next";
-
 //GET
-export const GET = async (req: NextApiRequest, { params }) => {
+export const GET = async (req: Request, { params }) => {
   console.log("params: ", params);
   const { id: userId } = params;
 

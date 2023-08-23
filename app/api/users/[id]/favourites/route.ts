@@ -1,8 +1,7 @@
-import { NextApiRequest, NextApiResponse } from "next";
 import User from "@models/user";
 import { connectToDB } from "@utils/database";
 
-export const GET = async (req: NextApiRequest, { params }) => {
+export const GET = async (req: Request, { params }) => {
   try {
     await connectToDB();
     const favourites = await User.findById(params.id).populate("favourites");
