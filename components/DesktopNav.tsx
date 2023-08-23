@@ -14,7 +14,7 @@ const DesktopNav = ({ providers, handleSignOut }) => {
       case "authenticated":
         return session?.user ? (
           <div className="flex gap-3 md:gap-5">
-            <Link href="/create-prompt" className="black_btn">
+            <Link href="/user/create-prompt" className="black_btn">
               Create Post
             </Link>
             <button
@@ -24,7 +24,7 @@ const DesktopNav = ({ providers, handleSignOut }) => {
             >
               Sign Out
             </button>
-            <Link href="/profile">
+            <Link href="/user/profile">
               <Image
                 src={session?.user?.image}
                 width={37}

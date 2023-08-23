@@ -2,7 +2,7 @@
 import React from "react";
 import { useSearchParams } from "next/navigation";
 // Custom Hooks
-import useGetPostsByUserID from "../../../hooks/useGetPostsByUserID";
+import useGetPostsByUserID from "../../../../hooks/useGetPostsByUserID";
 // Components
 import Profile from "@components/Profile";
 

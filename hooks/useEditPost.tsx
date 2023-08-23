@@ -6,7 +6,7 @@ const useEditPost = (): {
 } => {
   const router = useRouter();
   function handleEdit(post: Post) {
-    router.push(`/update-prompt?id=${post._id}`);
+    router.push(`/user/update-prompt?id=${post._id}`);
   }
 
   return { handleEdit };

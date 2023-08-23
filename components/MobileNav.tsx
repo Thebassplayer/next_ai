@@ -41,7 +41,7 @@ const MobileNav = ({
                   My Profile
                 </Link>
                 <Link
-                  href="/create-prompt"
+                  href="/user/create-prompt"
                   className="dropdown_link"
                   onClick={() => setToggleDropdown(false)}
                 >
