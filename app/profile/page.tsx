@@ -8,7 +8,9 @@ import Profile from "@components/Profile";
 const MyProfile = () => {
   const { userPosts } = useGetPostsByUserID();
   const { handleEdit } = useEditPost();
-  const { handleDelete } = useDeletePost("/");
+  const { handleDelete } = useDeletePost({
+    refresh: true,
+  });
 
   return (
     <Profile

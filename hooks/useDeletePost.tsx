@@ -3,8 +3,9 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 // MongoDB
 import { Post } from "mongodb";
+import { useDeletePostProps } from "hooks";
 
-const useDeletePost = (redirectRoutePath: string) => {
+const useDeletePost = ({ refresh, redirectRoutePath }: useDeletePostProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(null);
   const router = useRouter();
@@ -23,6 +24,9 @@ const useDeletePost = (redirectRoutePath: string) => {
         if (res.ok) {
           setIsLoading(false);
           setIsError(null);
+          if (refresh) {
+            router.refresh();
+          }
           router.push(redirectRoutePath);
         }
       } catch (error) {

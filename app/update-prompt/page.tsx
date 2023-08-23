@@ -20,6 +20,7 @@ const EditPrompt = () => {
     postId,
     post,
     setPost,
+    refresh: false,
     redirectRoutePath: "/",
   });
 

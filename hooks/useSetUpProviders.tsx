@@ -1,3 +1,4 @@
+"use client";
 import { useEffect, useState } from "react";
 // Types
 import { ProviderList } from "next-auth";
@@ -5,27 +6,60 @@ import { ProviderList } from "next-auth";
 import { getProviders } from "next-auth/react";
 
 const useSetUpProviders = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
-  const [providers, setProviders] = useState<ProviderList | null>(null);
+  const [status, setStatus] = useState<{
+    isSuccess: boolean;
+    isLoading: boolean;
+    isError: boolean;
+  }>({
+    isSuccess: false,
+    isLoading: false,
+    isError: false,
+  });
+
+  const [providers, setProviders] = useState<ProviderList | []>([]);
 
   useEffect(() => {
     try {
-      setIsLoading(true);
+      setStatus({
+        isSuccess: false,
+        isLoading: true,
+        isError: false,
+      });
       const setUpProviders = async () => {
-        const response = await getProviders();
-        setIsLoading(false);
-        setIsError(false);
-        setProviders(response);
+        try {
+          const response = await getProviders();
+          setStatus({
+            isSuccess: true,
+            isLoading: false,
+            isError: false,
+          });
+          setProviders(response);
+        } catch (error) {
+          setStatus({
+            isSuccess: false,
+            isLoading: false,
+            isError: true,
+          });
+          console.log("--Error:", error);
+        }
       };
       setUpProviders();
     } catch (error) {
-      setIsLoading(false);
-      setIsError(true);
+      setStatus({
+        isSuccess: false,
+        isLoading: false,
+        isError: true,
+      });
       console.log("--Error:", error);
     }
   }, []);
-  return { providers, isLoading, isError };
+
+  return {
+    providers,
+    isLoading: status.isLoading,
+    isError: status.isError,
+    isSuccess: status.isSuccess,
+  };
 };
 
 export default useSetUpProviders;

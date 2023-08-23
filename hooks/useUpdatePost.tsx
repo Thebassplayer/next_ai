@@ -1,7 +1,14 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useUpdatePostProps } from "hooks";
 
-const useUpdatePost = ({ postId, post, setPost, redirectRoutePath }) => {
+const useUpdatePost = ({
+  postId,
+  post,
+  setPost,
+  refresh,
+  redirectRoutePath,
+}: useUpdatePostProps) => {
   const router = useRouter();
   const [submitting, setSubmitting] = useState(false);
 
@@ -20,6 +27,9 @@ const useUpdatePost = ({ postId, post, setPost, redirectRoutePath }) => {
         }),
       });
       if (response.ok) {
+        if (refresh) {
+          router.refresh();
+        }
         router.push(redirectRoutePath);
       }
     } catch (error) {
