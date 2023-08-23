@@ -15,7 +15,7 @@ const MyProfile = () => {
   return (
     <Profile
       name="My"
-      desc="Welcome to your profile page"
+      description="Welcome to your profile page"
       data={userPosts}
       handleEdit={handleEdit}
       handleDelete={handleDelete}

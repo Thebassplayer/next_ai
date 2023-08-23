@@ -1,9 +1,12 @@
+import { useContext } from "react";
+import { UserContext } from "context/user.context";
+
 import PostCard from "./PostCard";
 import { Post } from "mongodb";
 
 type ProfileProps = {
   name: string;
-  desc: string;
+  description: string;
   data: any;
   handleEdit?: (post: Post) => void;
   handleDelete?: (post: Post) => void;
@@ -11,7 +14,7 @@ type ProfileProps = {
 
 const Profile = ({
   name,
-  desc,
+  description,
   data,
   handleEdit,
   handleDelete,
@@ -21,7 +24,7 @@ const Profile = ({
       <h1 className="head_text text-left">
         <span className="blue_gradient">{name} Profile</span>
       </h1>
-      <p className="desc text-left">{desc}</p>
+      <p className="desc text-left">{description}</p>
       <div className="mt-10 prompt_layout">
         {data.map((post: Post, index: number) => (
           <PostCard

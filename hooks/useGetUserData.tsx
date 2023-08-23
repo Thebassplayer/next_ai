@@ -3,33 +3,33 @@ import { useState, useEffect } from "react";
 //Next
 import { useSession } from "next-auth/react";
 // Types
-import { Post } from "mongodb";
+import { Post, User } from "mongodb";
 
-const useGetPostsByUserID = (
+const useGetUserData = (
   userId?: string
 ): {
-  userPosts: Post[] | [];
+  userData: User | null;
   isLoading: boolean;
   isError: any;
 } => {
   const { data: session } = useSession();
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(null);
-  const [userPosts, setUserPosts] = useState<Post[] | []>([]);
+  const [userData, setUserData] = useState<User | null>(null);
 
   const id = userId || session?.user?.id;
 
   console.log("id", id);
 
   useEffect(() => {
-    const getPostsByUserID = async () => {
-      const res = await fetch(`/api/users/${id}/posts`);
+    const getuserData = async () => {
+      const res = await fetch(`/api/users/${id}`);
       const data = await res.json();
-      setUserPosts(data);
+      setUserData(data);
     };
     try {
       if (id) {
-        getPostsByUserID();
+        getuserData();
         setIsLoading(false);
         setIsError(null);
       }
@@ -39,7 +39,7 @@ const useGetPostsByUserID = (
     }
   }, [id]);
 
-  return { userPosts, isLoading, isError };
+  return { userData, isLoading, isError };
 };
 
-export default useGetPostsByUserID;
+export default useGetUserData;

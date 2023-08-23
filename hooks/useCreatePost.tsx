@@ -12,7 +12,7 @@ const useCreatePost = () => {
     tag: "",
   });
   const [submitting, setSubmitting] = useState(false);
-  const createPrompt = async () => {
+  const createPost = async () => {
     setSubmitting(true);
     try {
       const response = await fetch("/api/prompt/new", {
@@ -34,7 +34,7 @@ const useCreatePost = () => {
     }
   };
 
-  return { post, setPost, submitting, createPrompt };
+  return { post, setPost, submitting, createPost };
 };
 
 export default useCreatePost;

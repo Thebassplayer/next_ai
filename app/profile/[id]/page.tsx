@@ -22,7 +22,7 @@ const UserProfile = ({ params }: UserProfileProps) => {
   return (
     <Profile
       name={userName}
-      desc={`Welcome to ${userName}'s prompts page.`}
+      description={`Welcome to ${userName}'s prompts page.`}
       data={userPosts}
     />
   );

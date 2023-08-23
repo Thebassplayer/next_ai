@@ -3,7 +3,7 @@ import { useState } from "react";
 // Custom Hooks
 import useSetUpProviders from "@hooks/useSetUpProviders";
 // Next Auth
-import { signIn, signOut, useSession } from "next-auth/react";
+import { signOut } from "next-auth/react";
 // Components
 import Link from "next/link";
 import Image from "next/image";
@@ -11,7 +11,6 @@ import MobileNav from "./MobileNav";
 import DesktopNav from "./DesktopNav";
 
 const Nav = () => {
-  const { data: session } = useSession();
   const [toggleDropdown, setToggleDropdown] = useState(false);
 
   const handleSignOut = () => {

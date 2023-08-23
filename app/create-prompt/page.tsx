@@ -4,10 +4,10 @@ import useCreatePost from "@hooks/useCreatePost";
 import Post from "@components/Post";
 
 const CreatePrompt = () => {
-  const { post, setPost, submitting, createPrompt } = useCreatePost();
-  const handleSubmit = e => {
+  const { post, setPost, submitting, createPost } = useCreatePost();
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    createPrompt();
+    createPost();
   };
 
   return (
