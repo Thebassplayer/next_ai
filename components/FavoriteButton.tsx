@@ -3,14 +3,27 @@ import { useState } from "react";
 // Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { ObjectId } from "mongodb"; // Import the ObjectId type
+import useFavoritePosts from "@hooks/useFavouritePosts";
 
-const FavoriteButton = (): JSX.Element => {
+interface FavoriteButtonProps {
+  postId: ObjectId; // Use ObjectId type
+}
+
+const FavoriteButton = ({ postId }: FavoriteButtonProps): JSX.Element => {
   const [favoriteButton, setFavoriteButton] = useState(false);
+
+  const { favoritePosts, isLoading, isSuccess, isError } = useFavoritePosts(); // Use the hook
+
+  const handleFavoriteClick = async () => {
+    setFavoriteButton(prev => !prev);
+    await favoritePosts(postId);
+  };
 
   return (
     <div
       className="relative cursor-pointer copy_btn"
-      onClick={() => setFavoriteButton(prev => !prev)}
+      onClick={handleFavoriteClick}
     >
       {favoriteButton ? (
         <>

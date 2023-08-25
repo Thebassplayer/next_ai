@@ -3,7 +3,6 @@ import User from "@models/user";
 
 //GET
 export const GET = async (req: Request, { params }) => {
-  console.log("params: ", params);
   const { id: userId } = params;
 
   try {

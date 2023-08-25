@@ -1,8 +1,6 @@
 import React from "react";
 import Nav from "@components/Nav";
 import AuthProviderContext from "../context/auth.context";
-import UserProvider from "../context/user.context";
-import { useSession } from "next-auth/react"; // Import useSession from next-auth/react
 import "@styles/globals.css";
 
 export const metadata = {
@@ -15,9 +13,6 @@ interface RootLayoutProps {
 }
 
 const RootLayout = ({ children }: RootLayoutProps) => {
-  // Use useSession to get the session information
-  // const { data: session } = useSession();
-
   return (
     <html lang="en">
       <body>

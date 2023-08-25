@@ -1,10 +1,10 @@
 import { connectToDB } from "@utils/database";
-import Prompt from "@models/prompt";
+import Post from "@models/post";
 
 export const GET = async (req: Request, { params }) => {
   try {
     await connectToDB();
-    const prompts = await Prompt.find({
+    const prompts = await Post.find({
       creator: params.id,
     }).populate("creator");
 

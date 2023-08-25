@@ -13,8 +13,8 @@ const MobileNav = ({
 }) => {
   const { data: session, status: authStatus } = useSession();
   const { google } = providers;
-  console.log("providers: ", providers);
-  console.log(authStatus);
+  // console.log("providers: ", providers);
+  // console.log(authStatus);
 
   const renderOption = () => {
     switch (authStatus) {

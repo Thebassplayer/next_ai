@@ -1,13 +1,13 @@
 import { connectToDB } from "@utils/database";
-import Prompt from "@models/prompt";
+import Post from "@models/post";
 
 // GET
 export const GET = async (req: Request, { params }: { params: Params }) => {
   try {
     await connectToDB();
-    const prompt = await Prompt.findById(params.id).populate("creator");
+    const prompt = await Post.findById(params.id).populate("creator");
     if (!prompt) {
-      return new Response("Prompt not found", {
+      return new Response("Post not found", {
         status: 404,
       });
     }
@@ -30,10 +30,10 @@ export const PATCH = async (req: Request, { params }: { params: Params }) => {
   try {
     await connectToDB();
 
-    const existingPrompt = await Prompt.findById(params.id);
+    const existingPrompt = await Post.findById(params.id);
 
     if (!existingPrompt) {
-      return new Response("Prompt not found", {
+      return new Response("Post not found", {
         status: 404,
       });
     }
@@ -60,15 +60,15 @@ export const DELETE = async (req: Request, { params }: { params: Params }) => {
   try {
     await connectToDB();
 
-    const existingPrompt = await Prompt.findById(params.id);
+    const existingPrompt = await Post.findById(params.id);
 
     if (!existingPrompt) {
-      return new Response("Prompt not found", {
+      return new Response("Post not found", {
         status: 404,
       });
     }
 
-    await Prompt.findByIdAndRemove(params.id);
+    await Post.findByIdAndRemove(params.id);
 
     return new Response(JSON.stringify(existingPrompt), {
       status: 200,

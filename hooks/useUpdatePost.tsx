@@ -15,7 +15,7 @@ const useUpdatePost = ({
   const updatePrompt = async e => {
     e.preventDefault();
     setSubmitting(true);
-    if (!postId) return alert("Prompt ID not found");
+    if (!postId) return alert("Post ID not found");
 
     try {
       const response = await fetch(`/api/prompt/${postId}`, {

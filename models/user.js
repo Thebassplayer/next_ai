@@ -19,7 +19,7 @@ const UserSchema = new Schema({
   favorites: [
     {
       type: Schema.Types.ObjectId,
-      ref: "Prompt",
+      ref: "Post",
     },
   ],
 });

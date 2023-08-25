@@ -1,12 +1,12 @@
 import { connectToDB } from "@utils/database";
 
-import Prompt from "@models/prompt";
+import Post from "@models/post";
 
 export const GET = async (req: Request, res: Request) => {
   try {
     await connectToDB();
 
-    const posts = await Prompt.find({}).populate("creator");
+    const posts = await Post.find({}).populate("creator");
 
     return new Response(JSON.stringify(posts), {
       status: 200,

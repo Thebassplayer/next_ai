@@ -1,6 +1,5 @@
 "use client";
 import React, { createContext, useState, useEffect } from "react";
-import Prompt from "@models/prompt";
 import { Session } from "next-auth";
 import useGetUserData from "@hooks/useGetUserData";
 import { User } from "mongodb";

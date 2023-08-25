@@ -82,7 +82,7 @@ const PostCard = ({
             />
           </div>
 
-          <FavoriteButton />
+          <FavoriteButton postId={post._id} />
         </div>
       </div>
       {sessionIdEqualsCreatorId ? (
