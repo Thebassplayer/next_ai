@@ -4,7 +4,7 @@ import { useSearchParams } from "next/navigation";
 // Custom Hooks
 import useGetPostsByUserID from "../../../../hooks/useGetPostsByUserID";
 // Components
-import Profile from "@components/Profile";
+import Profile from "app/components/Profile";
 
 type UserProfileProps = {
   params: {

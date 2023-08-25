@@ -4,7 +4,7 @@ import { useSearchParams } from "next/navigation";
 import useUpdatePost from "@hooks/useUpdatePost";
 import useGetPostDetails from "@hooks/useGetPostDetails";
 
-import Post from "@components/Post";
+import Post from "app/components/Post";
 
 const EditPrompt = () => {
   const searchParams = useSearchParams();

@@ -1,4 +1,4 @@
-import Feed from "@components/Feed";
+import Feed from "app/components/Feed";
 import React from "react";
 
 const Home = () => {

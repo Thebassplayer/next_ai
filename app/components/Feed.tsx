@@ -5,7 +5,7 @@ import PostCardList from "./PostCardList";
 // Next
 import { useSession } from "next-auth/react";
 // Custom Hooks
-import useGetFeedPosts from "../hooks/useGetFeedPosts";
+import useGetFeedPosts from "../../hooks/useGetFeedPosts";
 import useFilterPosts from "@hooks/useFilterPosts";
 
 const Feed = (): JSX.Element => {

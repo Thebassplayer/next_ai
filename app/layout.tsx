@@ -1,5 +1,5 @@
 import React from "react";
-import Nav from "@components/Nav";
+import Nav from "app/components/Nav";
 import AuthProviderContext from "../context/auth.context";
 import "@styles/globals.css";
 

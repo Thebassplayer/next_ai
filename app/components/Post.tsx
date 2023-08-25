@@ -1,7 +1,7 @@
 // Components
-import Form from "@components/Form";
-import PostTitle from "@components/PostTitle";
-import FavoriteButton from "@components/FavoriteButton";
+import Form from "app/components/Form";
+import PostTitle from "app/components/PostTitle";
+import FavoriteButton from "app/components/FavoriteButton";
 import { Post } from "mongodb";
 
 type PostProps = {

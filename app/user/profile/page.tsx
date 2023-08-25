@@ -3,7 +3,7 @@ import useGetPostsByUserID from "@hooks/useGetPostsByUserID";
 import useDeletePost from "@hooks/useDeletePost";
 import useEditPost from "@hooks/useEditPost";
 // Components
-import Profile from "@components/Profile";
+import Profile from "app/components/Profile";
 
 const MyProfile = () => {
   const { userPosts } = useGetPostsByUserID();

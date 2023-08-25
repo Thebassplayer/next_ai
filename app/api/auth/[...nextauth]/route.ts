@@ -15,6 +15,8 @@ const handler = NextAuth({
   callbacks: {
     async signIn({ profile }) {
       try {
+        if (!profile.email) throw new Error("No email found");
+
         await connectToDB();
 
         // Check if the user already exists in the database
