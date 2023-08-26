@@ -1,11 +1,10 @@
-import { useState } from "react";
-import { useSession } from "next-auth/react"; // Import the session hook from next-auth
-import { ObjectId } from "mongodb";
+import { useState, useEffect } from "react";
+import { useSession } from "next-auth/react";
+import { ObjectId, Post } from "mongodb";
 
 const useFavoritePosts = () => {
-  const { data: session } = useSession(); // Use destructuring to access the session data
-
-  const userId = session?.user?.id; // Use the session data to get the user id
+  const { data: session } = useSession();
+  const userId = session?.user?.id;
 
   const [status, setStatus] = useState({
     isSuccess: false,
@@ -13,7 +12,9 @@ const useFavoritePosts = () => {
     isError: false,
   });
 
-  const toggleFavoritePost = async (postId: ObjectId) => {
+  const [favoritePosts, setFavoritePosts] = useState<Post[]>([]);
+
+  const fetchFavoritePosts = async () => {
     setStatus({
       isSuccess: false,
       isLoading: true,
@@ -21,16 +22,16 @@ const useFavoritePosts = () => {
     });
 
     try {
-      const response = await fetch(
-        `/api/users/${userId}/favorites?postid=${postId}`,
-        {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await fetch(`/api/users/${userId}/favorites`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
       if (response.ok) {
+        const favoritePostsData = await response.json();
+        setFavoritePosts(favoritePostsData); // Cache the fetched posts in the state
         setStatus({
           isSuccess: true,
           isLoading: false,
@@ -53,7 +54,15 @@ const useFavoritePosts = () => {
     }
   };
 
-  const getFavoritePosts = async () => {
+  useEffect(() => {
+    fetchFavoritePosts();
+  }, []);
+
+  const toggleFavoritePost = async (
+    postId: ObjectId,
+    prompt: string,
+    tag: string
+  ) => {
     setStatus({
       isSuccess: false,
       isLoading: true,
@@ -61,21 +70,23 @@ const useFavoritePosts = () => {
     });
 
     try {
-      const response = await fetch(`/api/users/${userId}/favorites`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
+      const response = await fetch(
+        `/api/users/${userId}/favorites?postid=${postId}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ prompt, tag }),
+        }
+      );
       if (response.ok) {
-        const favoritePosts = await response.json();
+        fetchFavoritePosts(); // Update the cached favorite posts after toggling
         setStatus({
           isSuccess: true,
           isLoading: false,
           isError: false,
         });
-        return favoritePosts;
       } else {
         setStatus({
           isSuccess: false,
@@ -95,7 +106,7 @@ const useFavoritePosts = () => {
 
   return {
     toggleFavoritePost,
-    getFavoritePosts,
+    favoritePosts,
     isLoading: status.isLoading,
     isError: status.isError,
     isSuccess: status.isSuccess,

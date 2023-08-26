@@ -12,8 +12,6 @@ const MyProfile = () => {
   const { handleDelete } = useDeletePost({
     refresh: true,
   });
-  const { getFavoritePosts } = useFavoritePosts();
-  console.log(console.log(getFavoritePosts));
 
   return (
     <Profile

@@ -1,8 +1,7 @@
-import { useContext } from "react";
-import { UserContext } from "context/user.context";
-
+import React, { useState, useEffect } from "react"; // Import useState and useEffect
 import PostCard from "./PostCard";
 import { Post } from "mongodb";
+import useFavoritePosts from "@hooks/useFavouritePosts";
 
 type ProfileProps = {
   name: string;
@@ -19,6 +18,9 @@ const Profile = ({
   handleEdit,
   handleDelete,
 }: ProfileProps) => {
+  const { favoritePosts } = useFavoritePosts();
+  console.log(favoritePosts);
+
   return (
     <section className="w-full">
       <h1 className="head_text text-left">

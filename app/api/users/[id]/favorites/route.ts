@@ -1,5 +1,6 @@
 import Post from "@models/post";
 import User from "@models/user";
+import UserFavorite from "@models/userFavorite";
 import { connectToDB } from "@utils/database";
 
 export const PATCH = async (
@@ -9,27 +10,34 @@ export const PATCH = async (
   const { searchParams } = new URL(req.url);
   const userId = params.id;
   const postId = searchParams.get("postid");
+  const { prompt, tag } = await req.json();
 
   try {
     await connectToDB();
+    const userFavorite = await UserFavorite.findOne({ userId, postId });
 
-    const user = await User.findById(userId);
-
-    if (user.favorites.includes(postId)) {
-      // If postId exists in favorites, remove it
-      user.favorites.pull(postId);
+    if (userFavorite) {
+      // If userFavorite exists, remove it
+      await userFavorite.deleteOne();
     } else {
-      // If postId doesn't exist in favorites, add it
-      user.favorites.addToSet(postId);
+      // If userFavorite doesn't exist, create it
+      await UserFavorite.create({
+        userId,
+        postId,
+        post: { prompt, tag, shared: false },
+      });
     }
 
-    const updatedUser = await user.save();
+    console.log("Posts favorited/unfavorited successfully!");
 
-    console.log("Posts favorited/unfavorited successfully!", updatedUser);
-
-    return new Response(JSON.stringify(updatedUser), {
-      status: 200,
-    });
+    return new Response(
+      JSON.stringify({
+        message: "Posts favorited/unfavorited successfully!",
+      }),
+      {
+        status: 200,
+      }
+    );
   } catch (error) {
     console.error(error);
     return new Response(JSON.stringify(error), {
@@ -38,22 +46,22 @@ export const PATCH = async (
   }
 };
 
-export const GET = async (req: Request, { params }) => {
-  console.log("GETTING FAVORITES", params);
+export const GET = async (
+  req: Request,
+  {
+    params,
+  }: {
+    params: Params;
+  }
+) => {
+  const userId = params.id;
+  console.log(userId);
   try {
     await connectToDB();
 
-    const user = await User.findById(params.id);
-
-    if (!user) {
-      return new Response("User not found", {
-        status: 404,
-      });
-    }
-
-    const favoritePosts = await Post.find({
-      _id: { $in: user.favorites }, // Retrieve posts with IDs present in user's favorites array
-    });
+    const favoritePosts = await UserFavorite.find({
+      userId: params.id, // Find UserFavorites with the given userId
+    }).populate("postId"); // Populate the postId reference with the actual Post data
 
     console.log("Favorites retrieved successfully!", favoritePosts);
 

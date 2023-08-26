@@ -3,22 +3,24 @@ import { useState } from "react";
 // Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
-import { ObjectId } from "mongodb"; // Import the ObjectId type
+import { ObjectId, Post } from "mongodb"; // Import the ObjectId type
 import useFavoritePosts from "@hooks/useFavouritePosts";
 
 interface FavoriteButtonProps {
-  postId: ObjectId; // Use ObjectId type
+  post: Post; // Use ObjectId type
 }
 
-const FavoriteButton = ({ postId }: FavoriteButtonProps): JSX.Element => {
+const FavoriteButton = ({ post }: FavoriteButtonProps): JSX.Element => {
   const [favoriteButton, setFavoriteButton] = useState(false);
+  const { _id: postId, prompt, tag } = post;
+  // console.log(postId, prompt, tag);
 
   const { toggleFavoritePost, isLoading, isSuccess, isError } =
     useFavoritePosts(); // Use the hook
 
   const handleFavoriteClick = async () => {
     setFavoriteButton(prev => !prev);
-    await toggleFavoritePost(postId);
+    await toggleFavoritePost(postId, prompt, tag);
   };
 
   return (
