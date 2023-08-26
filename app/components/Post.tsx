@@ -7,7 +7,7 @@ import { Post } from "mongodb";
 type PostProps = {
   type: string;
   post: Post;
-  promptId?: string;
+  postId?: string;
   setPost: React.Dispatch<React.SetStateAction<Post>>;
   submitting: boolean;
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
@@ -38,7 +38,7 @@ const Post = ({
             className="absolute top-0 right-0 p-4 flex-center gap-2"
             role="post_button_container"
           >
-            <FavoriteButton />
+            <FavoriteButton postId={post._id} />
           </div>
           <Form
             post={post}
