@@ -48,6 +48,11 @@ const handler = NextAuth({
       return session;
     },
   },
+  pages: {
+    signIn: "/",
+    signOut: "/",
+    error: "/auth/error",
+  },
 });
 
 export { handler as GET, handler as POST };
