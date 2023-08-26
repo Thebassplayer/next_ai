@@ -32,7 +32,7 @@ const MobileNav = ({
             {toggleDropdown && (
               <div className="dropdown">
                 <Link
-                  href="/profile"
+                  href="/user/profile"
                   className="dropdown_link"
                   onClick={() => setToggleDropdown(false)}
                 >

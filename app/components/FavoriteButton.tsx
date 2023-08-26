@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 // Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
@@ -8,15 +8,23 @@ import useFavoritePosts from "@hooks/useFavouritePosts";
 
 interface FavoriteButtonProps {
   post: Post; // Use ObjectId type
+  favorite: boolean;
 }
 
-const FavoriteButton = ({ post }: FavoriteButtonProps): JSX.Element => {
+const FavoriteButton = ({
+  post,
+  favorite,
+}: FavoriteButtonProps): JSX.Element => {
   const [favoriteButton, setFavoriteButton] = useState(false);
   const { _id: postId, prompt, tag } = post;
   // console.log(postId, prompt, tag);
 
   const { toggleFavoritePost, isLoading, isSuccess, isError } =
     useFavoritePosts(); // Use the hook
+
+  useEffect(() => {
+    setFavoriteButton(favorite);
+  }, [favorite]);
 
   const handleFavoriteClick = async () => {
     setFavoriteButton(prev => !prev);

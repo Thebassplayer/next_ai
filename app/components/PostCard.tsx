@@ -9,6 +9,7 @@ import FavoriteButton from "./FavoriteButton";
 import { Post } from "mongodb";
 
 type PromptCardProps = {
+  favorite?: boolean;
   post?: Post;
   handleTagClick?: (tag: string) => void;
   handleEdit?: () => void;
@@ -17,6 +18,7 @@ type PromptCardProps = {
 };
 
 const PostCard = ({
+  favorite,
   post,
   handleTagClick,
   handleEdit,
@@ -25,7 +27,6 @@ const PostCard = ({
   const { data: session } = useSession();
   const pathName = usePathname();
   const router = useRouter();
-
   const sessionIdEqualsCreatorId = session?.user?.id === post?.creator?._id;
 
   const [copied, setCopied] = useState("");
@@ -61,7 +62,7 @@ const PostCard = ({
           />
           <div className="flex flex-col">
             <h3 className="font-satoshi font-semibold text-grey-900">
-              {post.creator.username}
+              {post?.creator?.username}
             </h3>
           </div>
         </div>
@@ -82,7 +83,7 @@ const PostCard = ({
             />
           </div>
 
-          <FavoriteButton post={post} />
+          <FavoriteButton post={post} favorite={favorite} />
         </div>
       </div>
       {sessionIdEqualsCreatorId ? (

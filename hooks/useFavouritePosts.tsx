@@ -4,7 +4,7 @@ import { ObjectId, Post } from "mongodb";
 
 const useFavoritePosts = () => {
   const { data: session } = useSession();
-  const userId = session?.user?.id;
+  let userId = session?.user?.id;
 
   const [status, setStatus] = useState({
     isSuccess: false,
@@ -22,6 +22,11 @@ const useFavoritePosts = () => {
     });
 
     try {
+      while (!userId) {
+        await new Promise(resolve => setTimeout(resolve, 100)); // Wait for 100ms
+        userId = session?.user?.id;
+      }
+
       const response = await fetch(`/api/users/${userId}/favorites`, {
         method: "GET",
         headers: {

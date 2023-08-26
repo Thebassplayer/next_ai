@@ -1,5 +1,3 @@
-import Post from "@models/post";
-import User from "@models/user";
 import UserFavorite from "@models/userFavorite";
 import { connectToDB } from "@utils/database";
 
@@ -24,7 +22,6 @@ export const PATCH = async (
       await UserFavorite.create({
         userId,
         postId,
-        post: { prompt, tag, shared: false },
       });
     }
 
@@ -54,14 +51,24 @@ export const GET = async (
     params: Params;
   }
 ) => {
-  const userId = params.id;
-  console.log(userId);
   try {
     await connectToDB();
 
-    const favoritePosts = await UserFavorite.find({
-      userId: params.id, // Find UserFavorites with the given userId
-    }).populate("postId"); // Populate the postId reference with the actual Post data
+    let userId = params.id;
+
+    // If params.id is initially undefined, wait for it to become available
+    while (!userId) {
+      await new Promise(resolve => setTimeout(resolve, 100)); // Wait for 100ms
+      userId = params.id;
+    }
+
+    const favoritePosts = await UserFavorite.find({ userId }).populate({
+      path: "postId",
+      populate: {
+        path: "creator",
+        model: "User",
+      },
+    });
 
     console.log("Favorites retrieved successfully!", favoritePosts);
 

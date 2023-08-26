@@ -4,24 +4,12 @@ const UserFavoriteSchema = new Schema({
   userId: {
     type: Schema.Types.ObjectId,
     ref: "User",
+    required: [true, "Please provide a user"],
   },
   postId: {
     type: Schema.Types.ObjectId,
     ref: "Post",
-  },
-  post: {
-    prompt: {
-      type: String,
-      required: [true, "Please provide a prompt"],
-    },
-    tag: {
-      type: String,
-      required: [true, "Please provide a tag"],
-    },
-    shared: {
-      type: Boolean,
-      default: false,
-    },
+    required: [true, "Please provide a post"],
   },
 });
 
