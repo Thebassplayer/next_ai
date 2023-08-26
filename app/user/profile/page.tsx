@@ -4,6 +4,7 @@ import useDeletePost from "@hooks/useDeletePost";
 import useEditPost from "@hooks/useEditPost";
 // Components
 import Profile from "app/components/Profile";
+import useFavoritePosts from "@hooks/useFavouritePosts";
 
 const MyProfile = () => {
   const { userPosts } = useGetPostsByUserID();
@@ -11,6 +12,8 @@ const MyProfile = () => {
   const { handleDelete } = useDeletePost({
     refresh: true,
   });
+  const { getFavoritePosts } = useFavoritePosts();
+  console.log(console.log(getFavoritePosts));
 
   return (
     <Profile

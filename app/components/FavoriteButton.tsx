@@ -13,11 +13,12 @@ interface FavoriteButtonProps {
 const FavoriteButton = ({ postId }: FavoriteButtonProps): JSX.Element => {
   const [favoriteButton, setFavoriteButton] = useState(false);
 
-  const { favoritePosts, isLoading, isSuccess, isError } = useFavoritePosts(); // Use the hook
+  const { toggleFavoritePost, isLoading, isSuccess, isError } =
+    useFavoritePosts(); // Use the hook
 
   const handleFavoriteClick = async () => {
     setFavoriteButton(prev => !prev);
-    await favoritePosts(postId);
+    await toggleFavoritePost(postId);
   };
 
   return (

@@ -13,8 +13,7 @@ const useFavoritePosts = () => {
     isError: false,
   });
 
-  const favoritePosts = async (postId: ObjectId) => {
-    // Remove userId parameter
+  const toggleFavoritePost = async (postId: ObjectId) => {
     setStatus({
       isSuccess: false,
       isLoading: true,
@@ -54,8 +53,49 @@ const useFavoritePosts = () => {
     }
   };
 
+  const getFavoritePosts = async () => {
+    setStatus({
+      isSuccess: false,
+      isLoading: true,
+      isError: false,
+    });
+
+    try {
+      const response = await fetch(`/api/users/${userId}/favorites`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.ok) {
+        const favoritePosts = await response.json();
+        setStatus({
+          isSuccess: true,
+          isLoading: false,
+          isError: false,
+        });
+        return favoritePosts;
+      } else {
+        setStatus({
+          isSuccess: false,
+          isLoading: false,
+          isError: true,
+        });
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      setStatus({
+        isSuccess: false,
+        isLoading: false,
+        isError: true,
+      });
+    }
+  };
+
   return {
-    favoritePosts,
+    toggleFavoritePost,
+    getFavoritePosts,
     isLoading: status.isLoading,
     isError: status.isError,
     isSuccess: status.isSuccess,

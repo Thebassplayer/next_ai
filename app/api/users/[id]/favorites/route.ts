@@ -1,3 +1,4 @@
+import Post from "@models/post";
 import User from "@models/user";
 import { connectToDB } from "@utils/database";
 
@@ -38,11 +39,25 @@ export const PATCH = async (
 };
 
 export const GET = async (req: Request, { params }) => {
+  console.log("GETTING FAVORITES", params);
   try {
     await connectToDB();
-    const favorites = await User.findById(params.id).populate("favorites");
 
-    return new Response(JSON.stringify(favorites), {
+    const user = await User.findById(params.id);
+
+    if (!user) {
+      return new Response("User not found", {
+        status: 404,
+      });
+    }
+
+    const favoritePosts = await Post.find({
+      _id: { $in: user.favorites }, // Retrieve posts with IDs present in user's favorites array
+    });
+
+    console.log("Favorites retrieved successfully!", favoritePosts);
+
+    return new Response(JSON.stringify(favoritePosts), {
       status: 200,
     });
   } catch (error) {
