@@ -8,10 +8,11 @@ const Favorites = () => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    if (favoritePosts) {
+    console.log(isSuccess);
+    if (isSuccess) {
       setPosts(favoritePosts);
     }
-  }, [favoritePosts]);
+  }, [favoritePosts, isSuccess]);
 
   return (
     <section className="w-full">

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useSession } from "next-auth/react";
 import { UserFavorite } from "mongodb";
 
@@ -8,24 +8,24 @@ const useFavoritePosts = () => {
 
   const [status, setStatus] = useState({
     isSuccess: false,
-    isLoading: false,
+    isLoading: true,
     isError: false,
+    error: null,
   });
 
   const [favoritePosts, setFavoritePosts] = useState<UserFavorite[]>([]);
-  const [hasLoaded, setHasLoaded] = useState(false); // Flag to indicate whether data has been loaded
 
-  const fetchFavoritePosts = async () => {
-    setStatus({
-      isSuccess: false,
-      isLoading: true,
-      isError: false,
-    });
+  const updateStatus = newStatus => {
+    setStatus(prevStatus => ({
+      ...prevStatus,
+      ...newStatus,
+    }));
+  };
 
+  const fetchFavoritePosts = useCallback(async () => {
     try {
-      while (!userId) {
-        await new Promise(resolve => setTimeout(resolve, 100)); // Wait for 100ms
-        userId = session?.user?.id;
+      if (!userId) {
+        return; // No need to fetch if user ID is not available
       }
 
       const response = await fetch(`/api/users/${userId}/favorites`, {
@@ -37,43 +37,40 @@ const useFavoritePosts = () => {
 
       if (response.ok) {
         const favoritePostsData = await response.json();
-        setFavoritePosts(favoritePostsData); // Cache the fetched posts in the state
-        setHasLoaded(true); // Mark data as loaded
-        setStatus({
+        setFavoritePosts(favoritePostsData);
+        updateStatus({
           isSuccess: true,
           isLoading: false,
           isError: false,
+          error: null,
         });
       } else {
-        setStatus({
-          isSuccess: false,
-          isLoading: false,
-          isError: true,
-        });
+        throw new Error("Failed to fetch favorite posts");
       }
     } catch (error) {
       console.error("Error:", error);
-      setStatus({
+      updateStatus({
         isSuccess: false,
         isLoading: false,
         isError: true,
+        error: error.message,
       });
     }
-  };
+  }, [userId]);
 
   useEffect(() => {
     fetchFavoritePosts();
-  }, []);
+  }, [fetchFavoritePosts]);
 
   const toggleFavoritePost = async (
     postId: string,
     prompt: string,
     tag: string
   ) => {
-    setStatus({
-      isSuccess: false,
+    updateStatus({
       isLoading: true,
       isError: false,
+      error: null,
     });
 
     try {
@@ -87,43 +84,35 @@ const useFavoritePosts = () => {
           body: JSON.stringify({ prompt, tag }),
         }
       );
+
       if (response.ok) {
-        fetchFavoritePosts(); // Update the cached favorite posts after toggling
-        setStatus({
+        fetchFavoritePosts();
+        updateStatus({
           isSuccess: true,
           isLoading: false,
           isError: false,
+          error: null,
         });
       } else {
-        setStatus({
-          isSuccess: false,
-          isLoading: false,
-          isError: true,
-        });
+        throw new Error("Failed to toggle favorite");
       }
     } catch (error) {
       console.error("Error:", error);
-      setStatus({
-        isSuccess: false,
+      updateStatus({
         isLoading: false,
         isError: true,
+        error: error.message,
       });
     }
   };
 
-  const isFavorite = (postId: string) => {
-    return favoritePosts.some(
-      favoritePost => favoritePost.postId._id === postId
-    );
-  };
-
   return {
-    isFavorite,
     toggleFavoritePost,
     favoritePosts,
     isLoading: status.isLoading,
     isError: status.isError,
     isSuccess: status.isSuccess,
+    error: status.error,
   };
 };
 
