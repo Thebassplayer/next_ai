@@ -30,18 +30,21 @@ const FavoriteButton = ({ post }: FavoriteButtonProps): JSX.Element => {
       className="relative cursor-pointer copy_btn"
       onClick={handleFavoriteClick}
     >
+      <FontAwesomeIcon icon={faStar} size="sm" />
       {favoriteButton ? (
-        <>
-          <FontAwesomeIcon icon={faStar} size="sm" />
-          <FontAwesomeIcon
-            icon={faStar}
-            size="xs"
-            style={{ color: "#ffea00" }}
-            className="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-          />
-        </>
+        <FontAwesomeIcon
+          icon={faStar}
+          size={"xs"}
+          style={{ color: "#ffea00" }}
+          className="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+        />
       ) : (
-        <FontAwesomeIcon icon={faStar} size="sm" />
+        <FontAwesomeIcon
+          icon={faStar}
+          size="xs"
+          style={{ color: "#F7F5FE" }}
+          className="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+        />
       )}
     </div>
   );

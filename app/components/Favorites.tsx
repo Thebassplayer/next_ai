@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import useFavoritePosts from "@hooks/useFavouritePosts";
 import PostCard from "./PostCard";
 import { CircularProgress } from "@mui/material";
+import Loading from "./Loading";
 
 const Favorites = () => {
   const { favoritePosts, isLoading, isSuccess } = useFavoritePosts();
@@ -20,26 +21,15 @@ const Favorites = () => {
         <span className="blue_gradient">Favorites</span>
       </h1>
 
-      <div className="mt-10 prompt_layout">
-        {isLoading && (
-          <>
-            <CircularProgress
-              size={40}
-              sx={{
-                color: "black",
-              }}
-            />
-          </>
-        )}
-        {isSuccess && (
-          <>
-            {posts.map((favoritePost: any, index: number) => {
-              const post = favoritePost.postId;
-              return <PostCard key={`${post.id}-${index}`} post={post} />;
-            })}
-          </>
-        )}
-      </div>
+      {isLoading ? <Loading /> : null}
+      {isSuccess && (
+        <div className="mt-10 prompt_layout w-full">
+          {posts.map((favoritePost: any, index: number) => {
+            const post = favoritePost.postId;
+            return <PostCard key={`${post.id}-${index}`} post={post} />;
+          })}
+        </div>
+      )}
     </section>
   );
 };

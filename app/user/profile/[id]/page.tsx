@@ -17,13 +17,13 @@ const UserProfile = ({ params }: UserProfileProps) => {
   const userName = searchParams.get("name");
   const id = params?.id;
 
-  const { userPosts } = useGetPostsByUserID(id);
+  // const { userPosts } = useGetPostsByUserID(id);
 
   return (
     <Profile
       name={userName}
       description={`Welcome to ${userName}'s prompts page.`}
-      data={userPosts}
+      userId={id}
     />
   );
 };

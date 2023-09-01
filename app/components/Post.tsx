@@ -38,7 +38,7 @@ const Post = ({
             className="absolute top-0 right-0 p-4 flex-center gap-2"
             role="post_button_container"
           >
-            <FavoriteButton post={post} />
+            {type !== "Create" ? <FavoriteButton post={post} /> : null}
           </div>
           <Form
             post={post}
