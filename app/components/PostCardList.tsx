@@ -2,7 +2,7 @@
 import { type } from "os";
 import PromptCard from "./PostCard";
 // Types
-import { Post } from "mongodb";
+import { Post, UserFavorite } from "mongodb";
 
 type PostCardListProps = {
   data?: Post[];

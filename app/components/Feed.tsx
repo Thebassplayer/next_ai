@@ -11,6 +11,7 @@ import useFilterPosts from "@hooks/useFilterPosts";
 const Feed = (): JSX.Element => {
   const { data: session } = useSession();
   const { posts: allPosts } = useGetFeedPosts(session);
+
   const {
     searchText,
     handleSearchChange,

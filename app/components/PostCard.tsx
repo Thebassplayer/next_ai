@@ -8,9 +8,9 @@ import FavoriteButton from "./FavoriteButton";
 // Types
 import { Post } from "mongodb";
 
-type PromptCardProps = {
-  favorite?: boolean;
-  post?: Post;
+type PostCardProps = {
+  post: Post;
+  setPosts?: React.Dispatch<React.SetStateAction<Post[]>>;
   handleTagClick?: (tag: string) => void;
   handleEdit?: () => void;
   handleDelete?: () => void;
@@ -18,12 +18,11 @@ type PromptCardProps = {
 };
 
 const PostCard = ({
-  favorite,
   post,
   handleTagClick,
   handleEdit,
   handleDelete,
-}: PromptCardProps): JSX.Element => {
+}: PostCardProps): JSX.Element => {
   const { data: session } = useSession();
   const pathName = usePathname();
   const router = useRouter();
@@ -83,7 +82,7 @@ const PostCard = ({
             />
           </div>
 
-          <FavoriteButton post={post} favorite={favorite} />
+          <FavoriteButton post={post} />
         </div>
       </div>
       {sessionIdEqualsCreatorId ? (

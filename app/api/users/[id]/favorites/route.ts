@@ -62,15 +62,20 @@ export const GET = async (
       userId = params.id;
     }
 
-    const favoritePosts = await UserFavorite.find({ userId }).populate({
-      path: "postId",
-      populate: {
-        path: "creator",
-        model: "User",
-      },
-    });
+    const favoritePosts = await UserFavorite.find({ userId })
+      .populate({
+        path: "postId",
+        populate: {
+          path: "creator",
+          model: "User",
+        },
+      })
+      .lean();
 
-    console.log("Favorites retrieved successfully!", favoritePosts);
+    // Add the isFavorite field with a value of true to every favoritePost
+    favoritePosts.forEach(favoritePost => {
+      favoritePost.postId.isFavorite = true;
+    });
 
     return new Response(JSON.stringify(favoritePosts), {
       status: 200,

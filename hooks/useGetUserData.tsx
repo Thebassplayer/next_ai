@@ -19,8 +19,6 @@ const useGetUserData = (
 
   const id = userId || session?.user?.id;
 
-  console.log("id", id);
-
   useEffect(() => {
     const getuserData = async () => {
       const res = await fetch(`/api/users/${id}`);

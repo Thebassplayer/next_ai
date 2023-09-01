@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
-import { ObjectId, Post } from "mongodb";
+import { UserFavorite } from "mongodb";
 
 const useFavoritePosts = () => {
   const { data: session } = useSession();
@@ -12,7 +12,8 @@ const useFavoritePosts = () => {
     isError: false,
   });
 
-  const [favoritePosts, setFavoritePosts] = useState<Post[]>([]);
+  const [favoritePosts, setFavoritePosts] = useState<UserFavorite[]>([]);
+  const [hasLoaded, setHasLoaded] = useState(false); // Flag to indicate whether data has been loaded
 
   const fetchFavoritePosts = async () => {
     setStatus({
@@ -37,6 +38,7 @@ const useFavoritePosts = () => {
       if (response.ok) {
         const favoritePostsData = await response.json();
         setFavoritePosts(favoritePostsData); // Cache the fetched posts in the state
+        setHasLoaded(true); // Mark data as loaded
         setStatus({
           isSuccess: true,
           isLoading: false,
@@ -64,7 +66,7 @@ const useFavoritePosts = () => {
   }, []);
 
   const toggleFavoritePost = async (
-    postId: ObjectId,
+    postId: string,
     prompt: string,
     tag: string
   ) => {
@@ -109,7 +111,14 @@ const useFavoritePosts = () => {
     }
   };
 
+  const isFavorite = (postId: string) => {
+    return favoritePosts.some(
+      favoritePost => favoritePost.postId._id === postId
+    );
+  };
+
   return {
+    isFavorite,
     toggleFavoritePost,
     favoritePosts,
     isLoading: status.isLoading,

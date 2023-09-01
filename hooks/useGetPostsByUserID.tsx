@@ -19,8 +19,6 @@ const useGetPostsByUserID = (
 
   const id = userId || session?.user?.id;
 
-  console.log("id", id);
-
   useEffect(() => {
     const getPostsByUserID = async () => {
       const res = await fetch(`/api/users/${id}/posts`);

@@ -10,8 +10,6 @@ import { getToken } from "next-auth/jwt";
 export default withAuth(
   function middleware(request: NextRequest) {
     console.log("middleware");
-    console.log(request.url);
-    console.log(request.method);
   },
   {
     callbacks: {

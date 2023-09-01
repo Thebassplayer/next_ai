@@ -9,8 +9,9 @@ const useGetFeedPosts = (session: Session) => {
   useEffect(() => {
     if (!session) return;
     const getPosts = async () => {
-      const res = await fetch("/api/prompt");
-      const data = await res.json();
+      const userId = session.user.id;
+      const response = await fetch(`/api/prompt?userid=${userId}`);
+      const data = await response.json();
       setPosts(data);
     };
 
