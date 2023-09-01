@@ -7,7 +7,7 @@ export const connectToDB = async () => {
   mongoose.set("strictQuery", true);
 
   if (isConnected) {
-    console.log("MongoDB connected");
+    console.log("MongoDB already connected");
     return;
   }
   try {

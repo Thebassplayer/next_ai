@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import useFavoritePosts from "@hooks/useFavouritePosts";
 import PostCard from "./PostCard";
-import { CircularProgress } from "@mui/material";
 import Loading from "./Loading";
 
 const Favorites = () => {
