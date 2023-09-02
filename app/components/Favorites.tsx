@@ -8,7 +8,6 @@ const Favorites = () => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    console.log(isSuccess);
     if (isSuccess) {
       setPosts(favoritePosts);
     }

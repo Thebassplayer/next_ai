@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from "react"; // Import useState and useEffect
 import PostCard from "./PostCard";
 import { Post } from "mongodb";
 import useGetPostsByUserID from "@hooks/useGetPostsByUserID";
@@ -14,7 +13,7 @@ type ProfileProps = {
 };
 
 const Profile = ({ name, handleEdit, handleDelete, userId }: ProfileProps) => {
-  const { userPosts: data, isLoading, isSuccess } = useGetPostsByUserID(userId);
+  const { userPosts, isLoading, isSuccess } = useGetPostsByUserID(userId);
 
   return (
     <section className="w-full">
@@ -24,12 +23,13 @@ const Profile = ({ name, handleEdit, handleDelete, userId }: ProfileProps) => {
       {isLoading ? <Loading /> : null}
       {isSuccess && (
         <div className="mt-10 prompt_layout w-full">
-          {data.map((post: Post, index: number) => (
+          {userPosts.map((post: Post, index: number) => (
             <PostCard
               key={`${post.id}-${index}`}
               post={post}
               handleEdit={() => handleEdit && handleEdit(post)}
               handleDelete={() => handleDelete && handleDelete(post)}
+              favoriteButton={false}
             />
           ))}
         </div>

@@ -15,6 +15,7 @@ type PostCardProps = {
   handleEdit?: () => void;
   handleDelete?: () => void;
   key: any;
+  favoriteButton?: boolean;
 };
 
 const PostCard = ({
@@ -22,12 +23,12 @@ const PostCard = ({
   handleTagClick,
   handleEdit,
   handleDelete,
+  favoriteButton = true,
 }: PostCardProps): JSX.Element => {
   const { data: session } = useSession();
   const pathName = usePathname();
   const router = useRouter();
   const sessionIdEqualsCreatorId = session?.user?.id === post?.creator?._id;
-
   const [copied, setCopied] = useState("");
 
   const handleCopy = () => {
@@ -81,8 +82,7 @@ const PostCard = ({
               height={16}
             />
           </div>
-
-          <FavoriteButton post={post} />
+          {favoriteButton && <FavoriteButton post={post} />}
         </div>
       </div>
       {sessionIdEqualsCreatorId ? (
