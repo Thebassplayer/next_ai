@@ -35,7 +35,7 @@ const FavoriteButton = ({ post }: FavoriteButtonProps): JSX.Element => {
         <FontAwesomeIcon
           icon={faStar}
           size={"xs"}
-          style={{ color: "#ffea00" }}
+          style={{ color: "#8445ED" }}
           className="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
         />
       ) : (

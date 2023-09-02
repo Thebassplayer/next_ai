@@ -11,9 +11,21 @@ const useCreatePost = () => {
     prompt: "",
     tag: "",
   });
-  const [submitting, setSubmitting] = useState(false);
+  const [status, setStatus] = useState({
+    isSuccess: false,
+    isLoading: false,
+    isError: false,
+    error: null,
+  });
+
   const createPost = async () => {
-    setSubmitting(true);
+    setStatus({
+      ...status,
+      isLoading: true,
+      isError: false,
+      error: null,
+    });
+
     try {
       const response = await fetch("/api/prompt/new", {
         method: "POST",
@@ -23,18 +35,36 @@ const useCreatePost = () => {
           tag: post.tag,
         }),
       });
+
       if (response.ok) {
         router.push("/");
         setPost({ prompt: "", tag: "" });
+        setStatus({
+          isSuccess: true,
+          isLoading: false,
+          isError: false,
+          error: null,
+        });
+      } else {
+        throw new Error("Failed to create post");
       }
     } catch (error) {
-      console.log(error);
+      console.error("Error:", error);
+      setStatus({
+        isSuccess: false,
+        isLoading: false,
+        isError: true,
+        error: error.message,
+      });
     } finally {
-      setSubmitting(false);
+      setStatus({
+        ...status,
+        isLoading: false,
+      });
     }
   };
 
-  return { post, setPost, submitting, createPost };
+  return { post, setPost, submitting: status.isLoading, createPost, ...status };
 };
 
 export default useCreatePost;

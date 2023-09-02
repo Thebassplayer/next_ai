@@ -1,20 +1,27 @@
 import { useState } from "react";
-// Next
 import { useRouter } from "next/navigation";
-// MongoDB
 import { Post } from "mongodb";
-import { useDeletePostProps } from "hooks";
 
-const useDeletePost = ({ refresh, redirectRoutePath }: useDeletePostProps) => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(null);
+const useDeletePost = ({ refresh, redirectRoutePath }) => {
+  const [status, setStatus] = useState({
+    isLoading: false,
+    isError: false,
+    error: null,
+  });
   const router = useRouter();
 
   const handleDelete = async (post: Post) => {
-    setIsLoading(true);
+    setStatus({
+      ...status,
+      isLoading: true,
+      isError: false,
+      error: null,
+    });
+
     const ClientHasConfirmed = confirm(
       "Are you sure you want to delete this prompt?"
     );
+
     if (ClientHasConfirmed) {
       try {
         const res = await fetch(`/api/prompt/${post._id}`, {
@@ -22,21 +29,42 @@ const useDeletePost = ({ refresh, redirectRoutePath }: useDeletePostProps) => {
         });
 
         if (res.ok) {
-          setIsLoading(false);
-          setIsError(null);
+          setStatus({
+            isLoading: false,
+            isError: false,
+            error: null,
+          });
+
           if (refresh) {
             router.refresh();
           }
+
           router.push(redirectRoutePath);
+        } else {
+          throw new Error("Failed to delete post");
         }
       } catch (error) {
-        setIsLoading(false);
-        setIsError(error);
-        console.log(error);
+        console.error("Error:", error);
+        setStatus({
+          isLoading: false,
+          isError: true,
+          error: error.message,
+        });
       }
+    } else {
+      setStatus({
+        ...status,
+        isLoading: false,
+      });
     }
   };
-  return { handleDelete, isLoading, isError };
+
+  return {
+    handleDelete,
+    isLoading: status.isLoading,
+    isError: status.isError,
+    error: status.error,
+  };
 };
 
 export default useDeletePost;
