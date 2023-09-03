@@ -19,7 +19,6 @@ const MyProfile = () => {
       <Profile
         name="My"
         description="Welcome to your profile page"
-        data={userPosts}
         handleEdit={handleEdit}
         handleDelete={handleDelete}
       />
