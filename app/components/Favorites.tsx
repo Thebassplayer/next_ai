@@ -1,17 +1,9 @@
-import { useState, useEffect } from "react";
 import useFavoritePosts from "@hooks/useFavouritePosts";
 import PostCard from "./PostCard";
 import Loading from "./Loading";
 
 const Favorites = () => {
   const { favoritePosts, isLoading, isSuccess } = useFavoritePosts();
-  const [posts, setPosts] = useState([]);
-
-  useEffect(() => {
-    if (isSuccess) {
-      setPosts(favoritePosts);
-    }
-  }, [favoritePosts, isSuccess]);
 
   return (
     <section className="w-full">
@@ -22,7 +14,7 @@ const Favorites = () => {
       {isLoading ? <Loading /> : null}
       {isSuccess && (
         <div className="mt-10 prompt_layout w-full">
-          {posts.map((favoritePost: any, index: number) => {
+          {favoritePosts.map((favoritePost: any, index: number) => {
             const post = favoritePost.postId;
             return <PostCard key={`${post?.id}-${index}`} post={post} />;
           })}

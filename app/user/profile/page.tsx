@@ -1,14 +1,14 @@
 "use client";
-import useGetPostsByUserID from "@hooks/useGetPostsByUserID";
 import useDeletePost from "@hooks/useDeletePost";
 import useEditPost from "@hooks/useEditPost";
 // Components
 import Profile from "app/components/Profile";
-import useFavoritePosts from "@hooks/useFavouritePosts";
 import Favorites from "@components/Favorites";
+import { useSession } from "next-auth/react";
 
 const MyProfile = () => {
-  const { userPosts } = useGetPostsByUserID();
+  const session = useSession();
+  const userId = session?.data?.user?.id;
   const { handleEdit } = useEditPost();
   const { handleDelete } = useDeletePost({
     refresh: true,
@@ -18,9 +18,10 @@ const MyProfile = () => {
     <>
       <Profile
         name="My"
-        description="Welcome to your profile page"
         handleEdit={handleEdit}
         handleDelete={handleDelete}
+        userId={userId}
+        editAndDeleteButtons={true}
       />
       <Favorites />
     </>

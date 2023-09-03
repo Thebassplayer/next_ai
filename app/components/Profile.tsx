@@ -2,19 +2,22 @@ import PostCard from "./PostCard";
 import { Post } from "mongodb";
 import useGetPostsByUserID from "@hooks/useGetPostsByUserID";
 import Loading from "./Loading";
-import { useSession } from "next-auth/react";
 
 type ProfileProps = {
   name: string;
-  description: string;
-
   handleEdit?: (post: Post) => void;
   handleDelete?: (post: Post) => void;
+  userId: string;
+  editAndDeleteButtons?: boolean;
 };
 
-const Profile = ({ name, handleEdit, handleDelete }: ProfileProps) => {
-  const session = useSession();
-  const userId = session?.data?.user?.id;
+const Profile = ({
+  name,
+  handleEdit,
+  handleDelete,
+  userId,
+  editAndDeleteButtons,
+}: ProfileProps) => {
   const { userPosts, isLoading, isSuccess } = useGetPostsByUserID(userId);
 
   return (
@@ -32,7 +35,7 @@ const Profile = ({ name, handleEdit, handleDelete }: ProfileProps) => {
               handleEdit={() => handleEdit && handleEdit(post)}
               handleDelete={() => handleDelete && handleDelete(post)}
               favoriteButton={false}
-              editAndDeleteButtons={true}
+              editAndDeleteButtons={editAndDeleteButtons}
             />
           ))}
         </div>
