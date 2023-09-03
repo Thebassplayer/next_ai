@@ -1,9 +1,21 @@
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/navigation"; // Updated import
 import { Post } from "mongodb";
 
-const useDeletePost = ({ refresh, redirectRoutePath }) => {
-  const [status, setStatus] = useState({
+interface DeletePostStatus {
+  isLoading: boolean;
+  isError: boolean;
+  error: string | null;
+}
+
+const useDeletePost = ({
+  refresh,
+  redirectRoutePath,
+}: {
+  refresh: boolean;
+  redirectRoutePath?: string;
+}) => {
+  const [status, setStatus] = useState<DeletePostStatus>({
     isLoading: false,
     isError: false,
     error: null,
