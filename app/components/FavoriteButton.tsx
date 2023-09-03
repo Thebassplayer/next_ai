@@ -18,7 +18,7 @@ const FavoriteButton = ({ post }: FavoriteButtonProps): JSX.Element => {
     useFavoritePosts();
   useEffect(() => {
     setFavoriteButton(isFavorite);
-  }, [postId]);
+  }, [postId, isFavorite]);
 
   const handleFavoriteClick = async () => {
     setFavoriteButton(prev => !prev);

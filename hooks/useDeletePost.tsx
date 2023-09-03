@@ -1,5 +1,6 @@
+"use client";
 import { useState } from "react";
-import { useRouter } from "next/navigation"; // Updated import
+import { useRouter } from "next/navigation";
 import { Post } from "mongodb";
 
 interface DeletePostStatus {
@@ -50,8 +51,9 @@ const useDeletePost = ({
           if (refresh) {
             router.refresh();
           }
-
-          router.push(redirectRoutePath);
+          if (redirectRoutePath) {
+            router.push(redirectRoutePath);
+          }
         } else {
           throw new Error("Failed to delete post");
         }
