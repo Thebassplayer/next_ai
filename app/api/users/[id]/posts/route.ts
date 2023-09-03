@@ -18,8 +18,6 @@ export const GET = async (req: Request, { params }) => {
       post.isFavorite = userFavorites.some(fav => fav.postId.equals(post._id));
     });
 
-    console.log(posts);
-
     return new Response(JSON.stringify(posts), {
       status: 200,
     });

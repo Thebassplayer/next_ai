@@ -24,7 +24,7 @@ const Favorites = () => {
         <div className="mt-10 prompt_layout w-full">
           {posts.map((favoritePost: any, index: number) => {
             const post = favoritePost.postId;
-            return <PostCard key={`${post.id}-${index}`} post={post} />;
+            return <PostCard key={`${post?.id}-${index}`} post={post} />;
           })}
         </div>
       )}

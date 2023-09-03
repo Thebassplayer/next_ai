@@ -30,6 +30,7 @@ const Profile = ({ name, handleEdit, handleDelete, userId }: ProfileProps) => {
               handleEdit={() => handleEdit && handleEdit(post)}
               handleDelete={() => handleDelete && handleDelete(post)}
               favoriteButton={false}
+              editAndDeleteButtons={true}
             />
           ))}
         </div>

@@ -16,6 +16,7 @@ type PostCardProps = {
   handleDelete?: () => void;
   key: any;
   favoriteButton?: boolean;
+  editAndDeleteButtons?: boolean;
 };
 
 const PostCard = ({
@@ -24,6 +25,7 @@ const PostCard = ({
   handleEdit,
   handleDelete,
   favoriteButton = true,
+  editAndDeleteButtons = false,
 }: PostCardProps): JSX.Element => {
   const { data: session } = useSession();
   const pathName = usePathname();
@@ -32,8 +34,8 @@ const PostCard = ({
   const [copied, setCopied] = useState("");
 
   const handleCopy = () => {
-    setCopied(post.prompt);
-    navigator.clipboard.writeText(post.prompt);
+    setCopied(post?.prompt);
+    navigator.clipboard.writeText(post?.prompt);
     setTimeout(() => setCopied(""), 300);
   };
 
@@ -42,7 +44,7 @@ const PostCard = ({
       return router.push("/user/profile");
 
     router.push(
-      `/user/profile/${post?.creator?._id}?name=${post.creator.username}`
+      `/user/profile/${post?.creator?._id}?name=${post?.creator.username}`
     );
   };
 
@@ -73,11 +75,11 @@ const PostCard = ({
           <div className="copy_btn" onClick={handleCopy}>
             <Image
               src={
-                copied === post.prompt
+                copied === post?.prompt
                   ? "/assets/icons/tick.svg"
                   : "/assets/icons/copy.svg"
               }
-              alt={copied === post.prompt ? "copied" : "copy"}
+              alt={copied === post?.prompt ? "copied" : "copy"}
               width={16}
               height={16}
             />
@@ -90,10 +92,12 @@ const PostCard = ({
           className="my-4 font-satoshi text-sm text-gray-700 cursor-pointer"
           onClick={handleEdit}
         >
-          {post.prompt}
+          {post?.prompt}
         </p>
       ) : (
-        <p className="my-4 font-satoshi text-sm text-gray-700">{post.prompt}</p>
+        <p className="my-4 font-satoshi text-sm text-gray-700">
+          {post?.prompt}
+        </p>
       )}
 
       <div className="w-min">
@@ -101,10 +105,10 @@ const PostCard = ({
           className="font-inter text-sm blue_gradient cursor-pointer"
           onClick={() => handleTagClick && handleTagClick(post?.tag)}
         >
-          #{post.tag}
+          #{post?.tag}
         </p>
       </div>
-      {sessionIdEqualsCreatorId && pathName === "/profile" && (
+      {editAndDeleteButtons ? (
         <div className="mt-5 flex-center gap-4 border-gray-100 pt-3">
           <p
             className="font-inter text-sm green_gradient cursor-pointer"
@@ -119,7 +123,7 @@ const PostCard = ({
             Delete
           </p>
         </div>
-      )}
+      ) : null}
     </div>
   );
 };

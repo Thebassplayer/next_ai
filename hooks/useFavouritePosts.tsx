@@ -1,12 +1,19 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { useSession } from "next-auth/react";
 import { UserFavorite } from "mongodb";
 
+interface Status {
+  isSuccess: boolean;
+  isLoading: boolean;
+  isError: boolean;
+  error: string | null;
+}
+
 const useFavoritePosts = () => {
   const { data: session } = useSession();
-  let userId = session?.user?.id;
+  const userId = useMemo(() => session?.user?.id, [session]);
 
-  const [status, setStatus] = useState({
+  const [status, setStatus] = useState<Status>({
     isSuccess: false,
     isLoading: true,
     isError: false,
@@ -15,7 +22,7 @@ const useFavoritePosts = () => {
 
   const [favoritePosts, setFavoritePosts] = useState<UserFavorite[]>([]);
 
-  const updateStatus = newStatus => {
+  const updateStatus = (newStatus: Partial<Status>) => {
     setStatus(prevStatus => ({
       ...prevStatus,
       ...newStatus,
