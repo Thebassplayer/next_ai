@@ -16,15 +16,10 @@ const Favorites = () => {
     data: favoritePosts,
     isLoading,
     isSuccess,
-    isFetched,
   } = useQuery({
     queryKey: ["favorites", userId],
     queryFn: () => fetchFavorites(userId),
   });
-  console.log(isLoading);
-  console.log(isSuccess);
-  console.log(isFetched);
-  console.log(favoritePosts);
 
   return (
     <section className="w-full">

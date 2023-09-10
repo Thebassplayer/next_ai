@@ -26,7 +26,10 @@ const DesktopNav = ({ providers, handleSignOut }) => {
             </button>
             <Link href="/user/profile">
               <Image
-                src={session?.user?.image}
+                src={
+                  session?.user?.image ||
+                  "/assets/images/default_user_image.png"
+                }
                 width={37}
                 height={37}
                 className="rounded-full cursor-pointer ease-in-out delay-150 duration-300 hover:scale-110"
