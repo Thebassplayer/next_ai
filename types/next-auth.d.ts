@@ -20,4 +20,6 @@ declare module "next-auth" {
     email: string;
     picture: string;
   }
+
+  type UserId = Pick<Profile, "id">;
 }

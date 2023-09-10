@@ -1,4 +1,4 @@
-import React from "react";
+import QueryConnect from "@utils/queryConnect";
 import Nav from "app/components/Nav";
 import AuthProviderContext from "../context/auth.context";
 import "@styles/globals.css";
@@ -17,13 +17,15 @@ const RootLayout = ({ children }: RootLayoutProps) => {
     <html lang="en">
       <body>
         <AuthProviderContext>
-          <div className="main">
-            <div className="gradient" />
-          </div>
-          <main className="app">
-            <Nav />
-            {children}
-          </main>
+          <QueryConnect>
+            <div className="main">
+              <div className="gradient" />
+            </div>
+            <main className="app">
+              <Nav />
+              {children}
+            </main>
+          </QueryConnect>
         </AuthProviderContext>
       </body>
     </html>
