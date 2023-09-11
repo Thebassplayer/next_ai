@@ -56,7 +56,9 @@ const PostCard = ({
           onClick={handleProfileClick}
         >
           <Image
-            src={post?.creator?.image}
+            src={
+              post?.creator?.image || "/assets/images/default_user_image.png"
+            }
             alt="user_image"
             width={40}
             height={40}
