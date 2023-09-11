@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
@@ -28,9 +28,9 @@ const PostCard = ({
   editAndDeleteButtons = false,
 }: PostCardProps): JSX.Element => {
   const { data: session } = useSession();
-  const pathName = usePathname();
   const router = useRouter();
-  const sessionIdEqualsCreatorId = session?.user?.id === post?.creator?._id;
+  const userId = useMemo(() => session?.user?.id, [session]);
+  const sessionIdEqualsCreatorId = userId === post?.creator?._id;
   const [copied, setCopied] = useState("");
 
   const handleCopy = () => {

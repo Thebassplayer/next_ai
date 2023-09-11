@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useSession } from "next-auth/react";
 import { Post } from "mongodb";
 
@@ -9,7 +9,9 @@ const useGetPostsByUserID = (userId?: string) => {
   const [isError, setIsError] = useState(null);
   const [isSuccess, setIsSuccess] = useState(false); // Added isSuccess state
 
-  const id = userId || session?.user?.id;
+  const sessionId = useMemo(() => session?.user?.id, [session]);
+
+  const id = userId || sessionId;
 
   useEffect(() => {
     const getPostsByUserID = async () => {

@@ -17,7 +17,7 @@ const Favorites = () => {
     isLoading,
     isSuccess,
   } = useQuery({
-    queryKey: ["favorites", userId],
+    queryKey: ["favorites"],
     queryFn: () => fetchFavorites(userId),
   });
 

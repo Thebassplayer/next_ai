@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 //Next
 import { useSession } from "next-auth/react";
 // Types
@@ -17,7 +17,7 @@ const useGetUserData = (
   const [isError, setIsError] = useState(null);
   const [userData, setUserData] = useState<User | null>(null);
 
-  const id = userId || session?.user?.id;
+  const id = userId || useMemo(() => session?.user?.id, [session]);
 
   useEffect(() => {
     const getuserData = async () => {
