@@ -6,13 +6,13 @@ import Loading from "./Loading";
 import { fetchFavoritePosts } from "fetchData/fetchData";
 import { useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
+import { useMemo } from "react";
 
 const Favorites = () => {
   // const { favoritePosts, isLoading, isSuccess } = useFavoritePosts();
 
-  const session = useSession();
-
-  const userId = session?.data?.user?.id;
+  const { data: session } = useSession();
+  const userId = useMemo(() => session?.user?.id, [session]);
 
   const {
     data: favoritePosts,
@@ -21,6 +21,7 @@ const Favorites = () => {
   } = useQuery({
     queryKey: ["favoritePosts"],
     queryFn: () => fetchFavoritePosts(userId),
+    enabled: !!userId,
   });
 
   return (

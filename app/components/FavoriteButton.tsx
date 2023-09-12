@@ -16,12 +16,16 @@ interface FavoriteButtonProps {
 const FavoriteButton = ({ post }: FavoriteButtonProps): JSX.Element => {
   const [favoriteButton, setFavoriteButton] = useState(false);
   const { _id: postId, isFavorite } = post;
-  const session = useSession();
-  const userId = useMemo(() => session?.data?.user?.id, [session]);
+  const { data: session } = useSession();
+  const userId = useMemo(() => session?.user?.id, [session]);
 
   const queryClient = useQueryClient();
 
   // const { toggleFavoritePost } = useFavoritePosts();
+
+  useEffect(() => {
+    setFavoriteButton(isFavorite);
+  }, [post]);
 
   const { mutate } = useMutation({
     mutationFn: () => toggleFavoritePost(userId, postId),
@@ -39,9 +43,6 @@ const FavoriteButton = ({ post }: FavoriteButtonProps): JSX.Element => {
     mutate();
   };
 
-  useEffect(() => {
-    setFavoriteButton(isFavorite);
-  }, [isFavorite]);
   return (
     <div
       className="relative cursor-pointer copy_btn"
