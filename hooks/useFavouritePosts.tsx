@@ -70,11 +70,7 @@ const useFavoritePosts = () => {
     fetchFavoritePosts();
   }, [fetchFavoritePosts]);
 
-  const toggleFavoritePost = async (
-    postId: string,
-    prompt: string,
-    tag: string
-  ) => {
+  const toggleFavoritePost = async (postId: string) => {
     updateStatus({
       isLoading: true,
       isError: false,
@@ -89,7 +85,6 @@ const useFavoritePosts = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ prompt, tag }),
         }
       );
 

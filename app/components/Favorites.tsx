@@ -3,9 +3,25 @@
 import useFavoritePosts from "@hooks/useFavouritePosts";
 import PostCard from "./PostCard";
 import Loading from "./Loading";
+import { fetchFavoritePosts } from "fetchData/fetchData";
+import { useQuery } from "@tanstack/react-query";
+import { useSession } from "next-auth/react";
 
 const Favorites = () => {
-  const { favoritePosts, isLoading, isSuccess } = useFavoritePosts();
+  // const { favoritePosts, isLoading, isSuccess } = useFavoritePosts();
+
+  const session = useSession();
+
+  const userId = session?.data?.user?.id;
+
+  const {
+    data: favoritePosts,
+    isLoading,
+    isSuccess,
+  } = useQuery({
+    queryKey: ["favoritePosts"],
+    queryFn: () => fetchFavoritePosts(userId),
+  });
 
   return (
     <section className="w-full">
