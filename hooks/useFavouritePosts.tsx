@@ -82,9 +82,6 @@ const useFavoritePosts = () => {
         `/api/users/${userId}/favorites?postid=${postId}`,
         {
           method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-          },
         }
       );
 

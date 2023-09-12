@@ -2,7 +2,7 @@
 import { useMemo, useState } from "react";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 // Components
 import FavoriteButton from "./FavoriteButton";
 // Types
@@ -44,7 +44,7 @@ const PostCard = ({
       return router.push("/user/profile");
 
     router.push(
-      `/user/profile/${post?.creator?._id}?name=${post?.creator.username}`
+      `/user/profile/${post?.creator?._id}?name=${post?.creator?.username}`
     );
   };
 

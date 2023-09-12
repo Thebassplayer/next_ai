@@ -8,7 +8,6 @@ export const PATCH = async (
   const { searchParams } = new URL(req.url);
   const userId = params.id;
   const postId = searchParams.get("postid");
-  const { prompt, tag } = await req.json();
 
   try {
     await connectToDB();
